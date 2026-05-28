@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="灵智云\n欢迎您的加入"
+            android:text="智灵云APP\n欢迎您的加入"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold" />

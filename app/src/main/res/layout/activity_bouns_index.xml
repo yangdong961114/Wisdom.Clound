@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f5f5f5"
+    android:fitsSystemWindows="true">
+
+    <!-- 顶部返回栏 -->
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#dd524d">
+
+        <!-- 返回按钮 -->
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/ic_arrow_left"
+            android:scaleType="centerInside"
+            android:backgroundTint="#dd524d"
+            app:tint="#FFFFFF"/>
+
+        <!-- 标题 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="分红中心"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+    <!-- 选项卡：推荐奖励 | 团队业绩 | 广告收益 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tab_type0"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="推荐奖励分成"
+            android:textSize="16sp"
+            android:textColor="#dd524d"
+            android:textStyle="bold"
+            android:background="#fff"/>
+
+        <TextView
+            android:id="@+id/tab_type1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="团队业绩分成"
+            android:textSize="16sp"
+            android:textColor="#666"
+            android:background="#fff"/>
+
+        <TextView
+            android:id="@+id/tab_type2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="广告收益分成"
+            android:textSize="16sp"
+            android:textColor="#666"
+            android:background="#fff"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eee"/>
+
+    <!-- 统计宫格布局 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_stats"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="20dp"
+        android:background="#f5f5f5"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+
+        <!-- 累计分红 -->
+        <LinearLayout
+            android:id="@+id/item_total"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_rounded_left_top_bottom"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp"
+            app:layout_constraintWidth_percent="0.32"
+            app:layout_constraintHeight_percent="0.95"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_avatar_border"
+                android:padding="2dp"
+                android:src="@drawable/ic_total_wallet" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="累计分红"
+                android:textSize="16sp"
+                android:textColor="#333333"/>
+
+            <TextView
+                android:id="@+id/tv_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp"/>
+
+        </LinearLayout>
+
+        <!-- 今日分红 -->
+        <LinearLayout
+            android:id="@+id/item_todayWallet"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_rounded"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp"
+            app:layout_constraintWidth_percent="0.32"
+            app:layout_constraintHeight_percent="0.95"
+            app:layout_constraintStart_toEndOf="@id/item_total"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_avatar_border"
+                android:padding="2dp"
+                android:src="@drawable/ic_total_today" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="今日可分"
+                android:textSize="16sp"
+                android:textColor="#333333"/>
+
+            <TextView
+                android:id="@+id/tv_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp"/>
+
+        </LinearLayout>
+
+        <!-- 最大单型 -->
+        <LinearLayout
+            android:id="@+id/item_maxWallet"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="4dp"
+            android:background="@drawable/bg_rounded_right_top_bottom"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp"
+            app:layout_constraintWidth_percent="0.32"
+            app:layout_constraintHeight_percent="0.95"
+            app:layout_constraintStart_toEndOf="@id/item_todayWallet"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_avatar_border"
+                android:padding="2dp"
+                android:src="@drawable/ic_total_max" />
+
+            <TextView
+                android:id="@+id/tv_max_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="最大单型"
+                android:textSize="16sp"
+                android:textColor="#333333"/>
+
+            <TextView
+                android:id="@+id/tv_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 分红说明 StrHour -->
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:textColor="@color/red"
+        android:textSize="20sp"/>
+
+    <!-- 未获得分红资格提示（默认隐藏） -->
+    <TextView
+        android:id="@+id/tv_no_permission"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="未获得分红资格"
+        android:textSize="28sp"
+        android:textColor="@color/red"
+        android:visibility="gone"/>
+
+    <!-- 分红列表 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_bouns"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="10dp"/>
+
+</LinearLayout>

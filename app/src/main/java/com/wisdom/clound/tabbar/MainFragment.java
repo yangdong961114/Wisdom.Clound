@@ -1,12 +1,16 @@
 package com.wisdom.clound.tabbar;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +27,12 @@ import com.bumptech.glide.Glide;
 import com.wisdom.clound.Bean.UserResponse;
 import com.wisdom.clound.R;
 import com.wisdom.clound.ui.LoginActivity;
-import com.wisdom.clound.user.UserIndexActivity;
+import com.wisdom.clound.ui.activate.ActivateIndexActivity;
+import com.wisdom.clound.ui.bouns.BounsIndexActivity;
+import com.wisdom.clound.ui.goods.OrderIndexActivity;
+import com.wisdom.clound.ui.share.ShareIndexActivity;
+import com.wisdom.clound.ui.user.UserIndexActivity;
+import com.wisdom.clound.ui.wallet.WalletIndexActivity;
 import com.wisdom.clound.utils.OkHttpUtils;
 import com.wisdom.clound.utils.SPUtils;
 import com.google.gson.Gson;
@@ -42,14 +51,13 @@ public class MainFragment extends Fragment {
     private TextView tvNickname;
     private TextView tvUserCode;
     private TextView tvUserStatus;
-    private TextView tvUserFee;
+    private TextView tvAmount;
     private TextView tvUserWallet;
     private TextView tvUserPoints;
     private TextView tvUserGrade;
-    private LinearLayout tmExit; // 退出按钮
-    private LinearLayout tmUserInfo;
+    private LinearLayout tmBouns;
+    private LinearLayout tmUserInfo,tmUserShare,tmOrderInfo,tmActivate,tmWalletInfo;
     private SwipeRefreshLayout swipeRefreshLayout;
-
     private OkHttpClient okHttpClient;
     private Gson gson;
     private Handler mainHandler;
@@ -81,12 +89,16 @@ public class MainFragment extends Fragment {
         tvNickname = rootView.findViewById(R.id.tv_userName);
         tvUserCode = rootView.findViewById(R.id.tv_code);
         tvUserStatus = rootView.findViewById(R.id.tv_status);
-        tvUserFee = rootView.findViewById(R.id.tv_fee);
+        tvAmount = rootView.findViewById(R.id.tv_amount);
         tvUserWallet = rootView.findViewById(R.id.tv_wallet);
         tvUserPoints = rootView.findViewById(R.id.tv_points);
         tvUserGrade = rootView.findViewById(R.id.tv_grade);
-        tmExit = rootView.findViewById(R.id.item_exit);
+        tmBouns = rootView.findViewById(R.id.item_bouns);
         tmUserInfo = rootView.findViewById(R.id.item_userInfo);
+        tmUserShare = rootView.findViewById(R.id.item_teamInfo);
+        tmOrderInfo = rootView.findViewById(R.id.item_orderInfo);
+        tmActivate = rootView.findViewById(R.id.item_activate);
+        tmWalletInfo = rootView.findViewById(R.id.item_walletInfo);
 
         // 下拉刷新控件
         swipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh_layout);
@@ -98,10 +110,10 @@ public class MainFragment extends Fragment {
     }
 
     /**
-     * 初始化监听 → 新增【退出按钮】点击监听
+     * 初始化监听
      */
     private void initListener() {
-        // 原有昵称点击监听
+        // 昵称点击登录
         tvNickname.setOnClickListener(v -> {
             String nicknameText = tvNickname.getText().toString().trim();
             if ("立即登录".equals(nicknameText)) {
@@ -111,12 +123,25 @@ public class MainFragment extends Fragment {
             }
         });
 
-        // 新增：退出按钮点击监听
-        tmExit.setOnClickListener(v -> showExitConfirmDialog());
+        // ====================== 新增：邀请码点击复制功能 ======================
+        tvUserCode.setOnClickListener(v -> {
+            String inviteCode = tvUserCode.getText().toString().trim();
+            // 判断是否有有效邀请码
+            if (TextUtils.isEmpty(inviteCode) || "000000".equals(inviteCode)) {
+                showToast("暂无邀请码可复制");
+                return;
+            }
+            // 复制到系统剪贴板
+            ClipboardManager clipboardManager = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText("用户邀请码", inviteCode);
+            clipboardManager.setPrimaryClip(clipData);
+            // 自定义Toast提示成功
+            showToast("邀请码复制成功");
+        });
+        // ====================================================================
 
-        // 新增：用户信息条目（item_userInfo）点击监听
-        tmUserInfo.setOnClickListener(v -> {
-            // 1. 判断是否已登录（未登录则提示并跳转到登录页）
+        // 奖金
+        tmBouns.setOnClickListener( v -> {
             String userId = SPUtils.getUserId(getContext());
             if (TextUtils.isEmpty(userId) || "立即登录".equals(tvNickname.getText().toString().trim())) {
                 showToast("请登录后再使用此功能");
@@ -124,49 +149,93 @@ public class MainFragment extends Fragment {
                 startActivity(loginIntent);
                 return;
             }
-
-            // 2. 已登录则跳转到 UserIndexActivity
             if (getActivity() == null) return;
-            Intent userIndexIntent = new Intent(getActivity(), UserIndexActivity.class);
-            // 可选：传递用户信息到目标页面（比如userId、用户名等）
+            Intent userIndexIntent = new Intent(getActivity(), BounsIndexActivity.class);
             userIndexIntent.putExtra("userId", userId);
             startActivity(userIndexIntent);
         });
 
-        // 下拉刷新监听
+        // 用户信息
+        tmUserInfo.setOnClickListener(v -> {
+            String userId = SPUtils.getUserId(getContext());
+            if (TextUtils.isEmpty(userId) || "立即登录".equals(tvNickname.getText().toString().trim())) {
+                showToast("请登录后再使用此功能");
+                Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(loginIntent);
+                return;
+            }
+            if (getActivity() == null) return;
+            Intent userIndexIntent = new Intent(getActivity(), UserIndexActivity.class);
+            userIndexIntent.putExtra("userId", userId);
+            startActivity(userIndexIntent);
+        });
+
+        // 分享
+        tmUserShare.setOnClickListener(v -> {
+            String userId = SPUtils.getUserId(getContext());
+            if (TextUtils.isEmpty(userId) || "立即登录".equals(tvNickname.getText().toString().trim())) {
+                showToast("请登录后再使用此功能");
+                Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(loginIntent);
+                return;
+            }
+            if (getActivity() == null) return;
+            Intent userIndexIntent = new Intent(getActivity(), ShareIndexActivity.class);
+            userIndexIntent.putExtra("userId", userId);
+            startActivity(userIndexIntent);
+        });
+
+        // 订单
+        tmOrderInfo.setOnClickListener(v -> {
+            String userId = SPUtils.getUserId(getContext());
+            if (TextUtils.isEmpty(userId) || "立即登录".equals(tvNickname.getText().toString().trim())) {
+                showToast("请登录后再使用此功能");
+                Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(loginIntent);
+                return;
+            }
+            if (getActivity() == null) return;
+            Intent userIndexIntent = new Intent(getActivity(), OrderIndexActivity.class);
+            userIndexIntent.putExtra("userId", userId);
+            startActivity(userIndexIntent);
+        });
+
+        // 激活
+        tmActivate.setOnClickListener(v -> {
+            String userId = SPUtils.getUserId(getContext());
+            if (TextUtils.isEmpty(userId) || "立即登录".equals(tvNickname.getText().toString().trim())) {
+                showToast("请登录后再使用此功能");
+                Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(loginIntent);
+                return;
+            }
+            if (getActivity() == null) return;
+            Intent userIndexIntent = new Intent(getActivity(), ActivateIndexActivity.class);
+            userIndexIntent.putExtra("userId", userId);
+            startActivity(userIndexIntent);
+        });
+
+        // 钱包
+        tmWalletInfo.setOnClickListener(v -> {
+            String userId = SPUtils.getUserId(getContext());
+            if (TextUtils.isEmpty(userId) || "立即登录".equals(tvNickname.getText().toString().trim())) {
+                showToast("请登录后再使用此功能");
+                Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(loginIntent);
+                return;
+            }
+            if (getActivity() == null) return;
+            Intent userIndexIntent = new Intent(getActivity(), WalletIndexActivity.class);
+            userIndexIntent.putExtra("userId", userId);
+            startActivity(userIndexIntent);
+        });
+
+        // 下拉刷新
         swipeRefreshLayout.setOnRefreshListener(this::checkLoginStatus);
     }
 
     /**
-     * 显示退出确认弹窗
-     */
-    private void showExitConfirmDialog() {
-        if (!isAdded() || getActivity() == null) return;
-
-        new AlertDialog.Builder(getActivity())
-                .setTitle("退出确认")
-                .setMessage("是否确定退出当前账号？")
-                .setPositiveButton("确定", (dialog, which) -> {
-                    // 1. 清空userId缓存
-                    SPUtils.clearUserId(getContext());
-                    Log.d(TAG, "已清空用户ID缓存");
-                    // 2. 刷新页面（重新检查登录状态）
-                    checkLoginStatus();
-                    // 3. 提示退出成功
-                    showToast("退出成功");
-                    // 4. 关闭对话框
-                    dialog.dismiss();
-                })
-                .setNegativeButton("取消", (dialog, which) -> {
-                    // 取消退出，关闭对话框
-                    dialog.dismiss();
-                })
-                .setCancelable(true) // 点击外部可取消
-                .show();
-    }
-
-    /**
-     * 检查登录状态：有userId则请求用户信息，无则显示登录入口
+     * 检查登录状态
      */
     private void checkLoginStatus() {
         if (!isAdded() || getContext() == null) return;
@@ -182,29 +251,26 @@ public class MainFragment extends Fragment {
     }
 
     /**
-     * 显示未登录状态
+     * 未登录状态
      */
     private void showLoginEntry() {
         tvNickname.setText("立即登录");
         ivAvatar.setImageResource(R.drawable.ic_avatar);
-        // 清空其他用户信息（可选，优化体验）
         tvUserCode.setText("000000");
         tvUserStatus.setText("未激活");
-        tvUserFee.setText("0%");
+        tvAmount.setText("0.00");
         tvUserWallet.setText("￥0元");
         tvUserPoints.setText("0.00");
         tvUserGrade.setText("无团队级别");
-        // 停止下拉刷新动画
         stopRefreshAnimation();
     }
 
     /**
-     * 请求用户信息接口
-     * @param userId 用户ID
+     * 请求用户信息
      */
     private void requestUserInfo(String userId) {
         if (okHttpClient == null) {
-            Log.e(TAG, "OkHttpClient 初始化失败，无法发起请求");
+            Log.e(TAG, "OkHttpClient 初始化失败");
             showLoginEntry();
             return;
         }
@@ -228,7 +294,6 @@ public class MainFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (!response.isSuccessful() || response.body() == null) {
-                    Log.e(TAG, "响应失败或响应体为空");
                     mainHandler.post(() -> {
                         showLoginEntry();
                         stopRefreshAnimation();
@@ -238,7 +303,6 @@ public class MainFragment extends Fragment {
 
                 String jsonStr = response.body().string();
                 if (TextUtils.isEmpty(jsonStr)) {
-                    Log.e(TAG, "响应体JSON为空");
                     mainHandler.post(() -> {
                         showLoginEntry();
                         stopRefreshAnimation();
@@ -256,20 +320,19 @@ public class MainFragment extends Fragment {
                         String userStatus = userResponse.getData().getUserStatus();
                         String userWallet = userResponse.getData().getUserWallet();
                         String userPoints = userResponse.getData().getUserPoints();
+                        String amount = userResponse.getData().getUserAmount();
                         String userFee = userResponse.getData().getUserFee();
                         mainHandler.post(() -> {
-                            updateUserUI(userName, userAvatar, userCode, userGrade, userStatus, userWallet, userPoints, userFee);
+                            updateUserUI(userName, userAvatar, userCode, userGrade, userStatus, userWallet, userPoints, userFee, amount);
                             stopRefreshAnimation();
                         });
                     } else {
-                        Log.e(TAG, "接口返回异常：" + (userResponse != null ? userResponse.getCode() : "null"));
                         mainHandler.post(() -> {
                             showLoginEntry();
                             stopRefreshAnimation();
                         });
                     }
                 } catch (Exception e) {
-                    Log.e(TAG, "JSON解析失败：" + e.getMessage());
                     mainHandler.post(() -> {
                         showLoginEntry();
                         stopRefreshAnimation();
@@ -280,9 +343,9 @@ public class MainFragment extends Fragment {
     }
 
     /**
-     * 更新用户信息UI
+     * 更新UI
      */
-    private void updateUserUI(String userName, String userAvatar, String userCode, String userGrade, String userStatus, String userWallet, String userPoints, String userFee) {
+    private void updateUserUI(String userName, String userAvatar, String userCode, String userGrade, String userStatus, String userWallet, String userPoints, String userFee,String userAmount) {
         if (!isAdded() || getContext() == null) return;
 
         tvNickname.setText(TextUtils.isEmpty(userName) ? "立即登录" : userName);
@@ -291,7 +354,7 @@ public class MainFragment extends Fragment {
         tvUserStatus.setText(TextUtils.isEmpty(userStatus) ? "未激活" : userStatus);
         tvUserWallet.setText(TextUtils.isEmpty(userWallet) ? "￥0.00元" : userWallet);
         tvUserPoints.setText(TextUtils.isEmpty(userPoints) ? "0.00" : userPoints);
-        tvUserFee.setText(TextUtils.isEmpty(userFee) ? "0%" : userFee);
+        tvAmount.setText(TextUtils.isEmpty(userFee) ? "0" : userAmount);
 
         Glide.with(this)
                 .load(userAvatar)
@@ -303,7 +366,7 @@ public class MainFragment extends Fragment {
     }
 
     /**
-     * 停止下拉刷新动画
+     * 停止刷新
      */
     private void stopRefreshAnimation() {
         if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
@@ -312,16 +375,27 @@ public class MainFragment extends Fragment {
     }
 
     /**
-     * 安全显示Toast
+     * 自定义Toast
      */
     private void showToast(String msg) {
-        if (!isAdded() || getActivity() == null) return;
-        Toast.makeText(getActivity().getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+        if (!isAdded() || getContext() == null || TextUtils.isEmpty(msg)) {
+            return;
+        }
+        TextView textView = new TextView(getContext());
+        textView.setText(msg);
+        textView.setTextSize(14);
+        textView.setTextColor(0xFFFFFFFF);
+        textView.setBackgroundColor(0xCC000000);
+        textView.setPadding(50, 25, 50, 25);
+        textView.setGravity(Gravity.CENTER);
+
+        Toast toast = new Toast(getContext());
+        toast.setView(textView);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
-    /**
-     * 销毁时移除Handler回调+停止刷新
-     */
     @Override
     public void onDestroy() {
         super.onDestroy();

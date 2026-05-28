@@ -2,7 +2,9 @@ package com.wisdom.clound.tabbar;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -473,11 +475,26 @@ public class VideoFragment extends Fragment {
     }
 
     /**
-     * 工具方法：安全显示Toast（避免Context为空）
+     * ********** 统一封装：黑色透明Toast + 居中 + 无图标 **********
      */
     private void showToast(String msg) {
-        if (getContext() != null && isAdded()) {
-            Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+        if (!isAdded() || getContext() == null || TextUtils.isEmpty(msg)) {
+            return;
         }
+        // 自定义纯文字TextView，无系统默认图标
+        TextView textView = new TextView(getContext());
+        textView.setText(msg);
+        textView.setTextSize(14);
+        textView.setTextColor(0xFFFFFFFF); // 白色文字
+        textView.setBackgroundColor(0xCC000000); // 黑色半透明背景
+        textView.setPadding(50, 25, 50, 25);
+        textView.setGravity(Gravity.CENTER);
+
+        // 创建Toast并居中显示
+        Toast toast = new Toast(getContext());
+        toast.setView(textView);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 }

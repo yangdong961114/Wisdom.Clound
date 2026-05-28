@@ -1,8 +1,11 @@
-package com.wisdom.clound.user;
+package com.wisdom.clound.ui.user;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -12,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +31,7 @@ import com.wisdom.clound.Bean.AddressResponse;
 import com.wisdom.clound.Bean.UserAddress;
 import com.wisdom.clound.utils.SPUtils;
 
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,13 +41,13 @@ import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
  * 收货地址管理页面（完善省市区三级联动）
  */
 public class UserAddressActivity extends AppCompatActivity implements UserAddressAdapter.OnAddressOperateListener {
+
 
     // 三级联动数据源映射
     private Map<String, Integer> provinceArrayMap;    // 省份名称 → 城市数组资源ID
@@ -68,6 +68,28 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
     // 编辑模式标记
     private boolean isEditMode = false;
     private UserAddress editAddress; // 待编辑的地址
+    private boolean isEchoing = false;
+    private Switch switchDefault;
+
+    // ==================== 统一封装：黑色透明Toast + 居中 + 无图标 ====================
+    private void showToast(String msg) {
+        if (TextUtils.isEmpty(msg)) return;
+        // 纯文字TextView，无任何系统默认图标
+        TextView textView = new TextView(this);
+        textView.setText(msg);
+        textView.setTextSize(14);
+        textView.setTextColor(0xFFFFFFFF); // 白色文字
+        textView.setBackgroundColor(0xCC000000); // 黑色半透明背景
+        textView.setPadding(50, 25, 50, 25);
+        textView.setGravity(Gravity.CENTER);
+
+        // 屏幕居中显示
+        Toast toast = new Toast(this);
+        toast.setView(textView);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -247,8 +269,21 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
     }
 
     /**
-     * 显示添加/编辑地址弹窗
+     * 设置Spinner选中指定值（修复：去除空格匹配，兼容所有情况）
      */
+    private void setSpinnerSelection(Spinner spinner, String targetValue) {
+        if (targetValue == null || spinner.getAdapter() == null) return;
+        ArrayAdapter<?> adapter = (ArrayAdapter<?>) spinner.getAdapter();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            // 🔥 关键：去除首尾空格再匹配，防止隐形空格导致选不中
+            String item = adapter.getItem(i).toString().trim();
+            if (item.equals(targetValue.trim())) {
+                spinner.setSelection(i);
+                break;
+            }
+        }
+    }
+
     private void showAddAddressDialog() {
         // 加载弹窗布局
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_address, null);
@@ -260,28 +295,44 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
         spCity = dialogView.findViewById(R.id.sp_city);
         spDistrict = dialogView.findViewById(R.id.sp_district);
         etAddress = dialogView.findViewById(R.id.et_address);
+        switchDefault = dialogView.findViewById(R.id.switch_default); // 绑定开关
         Button btnClose = dialogView.findViewById(R.id.btn_dialog_close);
         Button btnSave = dialogView.findViewById(R.id.btn_save_address);
 
         // 初始化省市区三级联动
         initProvinceCityDistrictSpinner();
 
-        // 编辑模式：回显数据
-//        if (isEditMode && editAddress != null) {
-//            etName.setText(editAddress.getUserName());
-//            etPhone.setText(editAddress.getUserPhone());
-//            etAddress.setText(editAddress.getCityDesc());
-//            // 回显省市区
-//            setSpinnerSelection(spProvince, editAddress.getProvince());
-//            // 延迟加载城市（等待省份选择监听触发）
-//            spProvince.post(() -> {
-//                setSpinnerSelection(spCity, editAddress.getCity());
-//                // 延迟加载区县
-//                spCity.post(() -> {
-//                    setSpinnerSelection(spDistrict, editAddress.getDistrict());
-//                });
-//            });
-//        }
+        // 编辑模式：回显数据 + 同步默认地址状态
+        if (isEditMode && editAddress != null) {
+            etName.setText(editAddress.getUserName());
+            etPhone.setText(editAddress.getUserPhone());
+            etAddress.setText(editAddress.getAddress());
+            // 🔥 核心：编辑时同步默认地址状态
+            switchDefault.setChecked(editAddress.getIsDefault());
+
+            // 开启回显模式：禁用所有自动监听
+            isEchoing = true;
+
+            spProvince.post(() -> {
+                // 1. 选中省份
+                setSpinnerSelection(spProvince, editAddress.getProvince());
+                // 2. 手动加载对应城市
+                updateCitySpinner(editAddress.getProvince());
+
+                spCity.post(() -> {
+                    // 3. 选中城市
+                    setSpinnerSelection(spCity, editAddress.getCity());
+                    // 4. 手动加载对应区县
+                    updateDistrictSpinner(editAddress.getCity());
+
+                    // 选中区县
+                    spDistrict.postDelayed(() -> {
+                        setSpinnerSelection(spDistrict, editAddress.getDistrict());
+                        isEchoing = false;
+                    }, 100);
+                });
+            });
+        }
 
         // 创建弹窗
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -306,24 +357,11 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
         // 保存按钮点击
         btnSave.setOnClickListener(v -> {
             if (isEditMode) {
-                updateAddress(); // 编辑地址
+                updateAddress();
             } else {
-                saveAddress();   // 新增地址
+                saveAddress();
             }
         });
-    }
-
-    /**
-     * 设置Spinner选中指定值
-     */
-    private void setSpinnerSelection(Spinner spinner, String targetValue) {
-        ArrayAdapter<?> adapter = (ArrayAdapter<?>) spinner.getAdapter();
-        for (int i = 0; i < adapter.getCount(); i++) {
-            if (adapter.getItem(i).toString().equals(targetValue)) {
-                spinner.setSelection(i);
-                break;
-            }
-        }
     }
 
     /**
@@ -339,26 +377,30 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
         provinceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spProvince.setAdapter(provinceAdapter);
 
-        // 2. 省份选择监听 → 更新城市列表
+        // 2. 省份选择监听 → 更新城市列表（🔥 回显时不执行）
         spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // 🔥 核心：编辑回显时，禁用自动刷新，防止覆盖手动选中的值
+                if (isEchoing) return;
+
                 String selectedProvince = parent.getItemAtPosition(position).toString();
                 updateCitySpinner(selectedProvince);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // 3. 城市选择监听 → 更新区县列表
+        // 3. 城市选择监听 → 更新区县列表（🔥 回显时不执行）
         spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // 🔥 核心：编辑回显时，禁用自动刷新
+                if (isEchoing) return;
+
                 String selectedCity = parent.getItemAtPosition(position).toString();
                 updateDistrictSpinner(selectedCity);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
@@ -436,6 +478,7 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
         String district = spDistrict.getSelectedItem().toString();
         String detailAddress = etAddress.getText().toString().trim();
         String userId = SPUtils.getUserId(getApplicationContext());
+        int isDefault = switchDefault.isChecked() ? 1 : 0;
 
         // 2. 输入校验
         if (validateInput(name, phone, province, city, district, detailAddress, userId)) {
@@ -444,17 +487,18 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
 
         // 3. 构建POST请求参数
         FormBody formBody = new FormBody.Builder()
-                .add("userId", userId)
-                .add("name", name)
-                .add("phone", phone)
-                .add("province", province)
-                .add("city", city)
-                .add("district", district)
-                .add("address", detailAddress)
+                .add("UserId", userId)
+                .add("UserName", name)
+                .add("UserPhone", phone)
+                .add("Province", province)
+                .add("City", city)
+                .add("District", district)
+                .add("Address", detailAddress)
+                .add("IsDefault", String.valueOf(isDefault)) // 🔥 传递默认地址
                 .build();
 
         // 4. 发送新增请求
-        sendAddressRequest("https://api.rzkj.qyqd123.cn/Android/UserMap/AddUserMap", formBody, "添加");
+        sendAddressRequest("https://api.rzkj.qyqd123.cn/Android/UserMap/AddMap", formBody, "添加");
     }
 
     /**
@@ -469,6 +513,7 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
         String district = spDistrict.getSelectedItem().toString();
         String detailAddress = etAddress.getText().toString().trim();
         String userId = SPUtils.getUserId(getApplicationContext());
+        int isDefault = switchDefault.isChecked() ? 1 : 0;
 
         // 2. 输入校验
         if (validateInput(name, phone, province, city, district, detailAddress, userId)) {
@@ -477,18 +522,19 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
 
         // 3. 构建POST请求参数（新增mapId）
         FormBody formBody = new FormBody.Builder()
-                .add("mapId", String.valueOf(editAddress.getId()))
-                .add("userId", userId)
-                .add("name", name)
-                .add("phone", phone)
-                .add("province", province)
-                .add("city", city)
-                .add("district", district)
-                .add("address", detailAddress)
+                .add("Id", String.valueOf(editAddress.getId()))
+                .add("UserId", userId)
+                .add("UserName", name)
+                .add("UserPhone", phone)
+                .add("Province", province)
+                .add("City", city)
+                .add("District", district)
+                .add("Address", detailAddress)
+                .add("IsDefault", String.valueOf(isDefault))
                 .build();
-
+        Log.d("UserAddressActivity", "updateAddress: " + name+phone+province+city+district+detailAddress+userId);
         // 4. 发送编辑请求（替换为实际编辑API）
-        sendAddressRequest("https://api.rzkj.qyqd123.cn/Android/UserMap/UpdateUserMap", formBody, "修改");
+        sendAddressRequest("https://api.rzkj.qyqd123.cn/Android/UserMap/EditMap", formBody, "修改");
     }
 
     /**
@@ -498,23 +544,23 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
     private boolean validateInput(String name, String phone, String province, String city,
                                   String district, String detailAddress, String userId) {
         if (name.isEmpty()) {
-            Toast.makeText(this, "请输入收货人姓名", Toast.LENGTH_SHORT).show();
+            showToast("请输入收货人姓名");
             return true;
         }
         if (phone.isEmpty() || !phone.matches("^1[3-9]\\d{9}$")) {
-            Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+            showToast("请输入正确的手机号");
             return true;
         }
         if ("请选择省份".equals(province) || "请选择城市".equals(city) || "请选择区域".equals(district)) {
-            Toast.makeText(this, "请选择完整的省/市/区", Toast.LENGTH_SHORT).show();
+            showToast("请选择完整的省/市/区");
             return true;
         }
         if (detailAddress.isEmpty()) {
-            Toast.makeText(this, "请输入详细收货地址", Toast.LENGTH_SHORT).show();
+            showToast("请输入详细收货地址");
             return true;
         }
         if (userId.isEmpty()) {
-            Toast.makeText(this, "用户未登录", Toast.LENGTH_SHORT).show();
+            showToast("用户未登录");
             return true;
         }
         return false;
@@ -533,7 +579,7 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
             @Override
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(() -> {
-                    Toast.makeText(UserAddressActivity.this, operateType + "失败：" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    showToast(operateType + "失败：" + e.getMessage());
                 });
             }
 
@@ -545,16 +591,16 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
 
                     runOnUiThread(() -> {
                         if (addressResponse.getCode() == 200) {
-                            Toast.makeText(UserAddressActivity.this, "地址" + operateType + "成功", Toast.LENGTH_SHORT).show();
+                            showToast("地址" + operateType + "成功");
                             addAddressDialog.dismiss();
                             loadAddressList(); // 刷新列表
                         } else {
-                            Toast.makeText(UserAddressActivity.this, operateType + "失败：" + addressResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                            showToast(operateType + "失败：" + addressResponse.getMsg());
                         }
                     });
                 } else {
                     runOnUiThread(() -> {
-                        Toast.makeText(UserAddressActivity.this, operateType + "失败：" + response.code(), Toast.LENGTH_SHORT).show();
+                        showToast(operateType + "失败：" + response.code());
                     });
                 }
             }
@@ -568,7 +614,7 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
         // 1. 获取userId
         String userId = SPUtils.getUserId(getApplicationContext());
         if (userId.isEmpty()) {
-            Toast.makeText(this, "用户ID为空，请先登录", Toast.LENGTH_SHORT).show();
+            showToast("用户ID为空，请先登录");
             tvEmptyTip.setVisibility(View.VISIBLE);
             return;
         }
@@ -587,7 +633,7 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
             @Override
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(() -> {
-                    Toast.makeText(UserAddressActivity.this, "网络请求失败：" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    showToast("网络请求失败：" + e.getMessage());
                     tvEmptyTip.setVisibility(View.VISIBLE);
                 });
             }
@@ -610,13 +656,13 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
                                 mAdapter.updateData(addressList);
                             }
                         } else {
-                            Toast.makeText(UserAddressActivity.this, "查询失败：" + addressResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                            showToast("查询失败：" + addressResponse.getMsg());
                             tvEmptyTip.setVisibility(View.VISIBLE);
                         }
                     });
                 } else {
                     runOnUiThread(() -> {
-                        Toast.makeText(UserAddressActivity.this, "请求失败：" + response.code(), Toast.LENGTH_SHORT).show();
+                        showToast("请求失败：" + response.code());
                         tvEmptyTip.setVisibility(View.VISIBLE);
                     });
                 }
@@ -666,7 +712,7 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
             @Override
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(() -> {
-                    Toast.makeText(UserAddressActivity.this, "删除失败：" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    showToast("删除失败：" + e.getMessage());
                 });
             }
 
@@ -678,15 +724,15 @@ public class UserAddressActivity extends AppCompatActivity implements UserAddres
 
                     runOnUiThread(() -> {
                         if (deleteResponse.getCode() == 200) {
-                            Toast.makeText(UserAddressActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+                            showToast("删除成功");
                             loadAddressList();
                         } else {
-                            Toast.makeText(UserAddressActivity.this, "删除失败：" + deleteResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                            showToast("删除失败：" + deleteResponse.getMsg());
                         }
                     });
                 } else {
                     runOnUiThread(() -> {
-                        Toast.makeText(UserAddressActivity.this, "删除失败：" + response.code(), Toast.LENGTH_SHORT).show();
+                        showToast("删除失败：" + response.code());
                     });
                 }
             }

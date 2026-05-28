@@ -72,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
                 // 清空参数，避免Activity重建时重复处理
                 intent.removeExtra("target_fragment");
             }
+            if ("switch_to_cart".equals(target)) {
+                viewPager.setCurrentItem(2); // 对应nav_mine的位置
+                // 清空参数，避免Activity重建时重复处理
+                intent.removeExtra("target_fragment");
+            }
         }
     }
 

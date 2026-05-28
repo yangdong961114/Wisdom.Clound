@@ -47,4 +47,6 @@ dependencies {
     implementation libs.glide
     annotationProcessor libs.compiler
     implementation libs.flexbox
+    implementation libs.recyclerview
+    implementation libs.wechat.sdk.android
 }

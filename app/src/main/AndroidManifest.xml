@@ -23,28 +23,46 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.wisdom.clound.ui.activate.ActivateIndexActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.wisdom.clound.ui.bouns.BounsIndexActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.wisdom.clound.ui.goods.GoodsDetailsActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.wisdom.clound.ui.goods.OrderPayActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.wisdom.clound.ui.goods.OrderIndexActivity"
+            android:exported="true" />
+        <activity
             android:name="com.wisdom.clound.ui.LoginActivity"
             android:exported="true" />
         <activity
             android:name="com.wisdom.clound.ui.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name="com.wisdom.clound.goods.DetailsActivity"
+            android:name="com.wisdom.clound.ui.user.UserIndexActivity"
             android:exported="true" />
         <activity
-            android:name="com.wisdom.clound.user.UserIndexActivity"
+            android:name="com.wisdom.clound.ui.user.UserInfoActivity"
             android:exported="true" />
         <activity
-            android:name="com.wisdom.clound.user.UserInfoActivity"
+            android:name="com.wisdom.clound.ui.user.UserPwdActivity"
             android:exported="true" />
         <activity
-            android:name="com.wisdom.clound.user.UserPwdActivity"
+            android:name="com.wisdom.clound.ui.user.UserAddressActivity"
             android:exported="true" />
         <activity
-            android:name="com.wisdom.clound.user.UserAddressActivity"
+            android:name="com.wisdom.clound.ui.user.UserPayPwdActivity"
             android:exported="true" />
         <activity
-            android:name="com.wisdom.clound.user.UserPayPwdActivity"
+            android:name="com.wisdom.clound.ui.wallet.WalletIndexActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.wisdom.clound.ui.share.ShareIndexActivity"
             android:exported="true" />
     </application>
 

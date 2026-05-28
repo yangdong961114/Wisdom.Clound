@@ -5,20 +5,22 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.wisdom.clound.R;
+import com.wisdom.clound.utils.HttpUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.wisdom.clound.utils.HttpUtils;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -106,23 +108,23 @@ public class RegisterActivity extends AppCompatActivity {
     // 输入校验（不变）
     private boolean checkInput(String account, String pwd, String confirmPwd) {
         if (account.isEmpty()) {
-            Toast.makeText(this, "请输入账号", Toast.LENGTH_SHORT).show();
+            showToast("请输入账号");
             return false;
         }
         if (pwd.isEmpty()) {
-            Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
+            showToast("请输入密码");
             return false;
         }
         if (pwd.length() < 6) {
-            Toast.makeText(this, "密码长度不能少于6位", Toast.LENGTH_SHORT).show();
+            showToast("密码长度不能少于6位");
             return false;
         }
         if (confirmPwd.isEmpty()) {
-            Toast.makeText(this, "请确认密码", Toast.LENGTH_SHORT).show();
+            showToast("请确认密码");
             return false;
         }
         if (!pwd.equals(confirmPwd)) {
-            Toast.makeText(this, "两次输入的密码不一致", Toast.LENGTH_SHORT).show();
+            showToast("两次输入的密码不一致");
             return false;
         }
         return true;
@@ -147,7 +149,7 @@ public class RegisterActivity extends AppCompatActivity {
             jsonParams.put("deviceId", deviceId);     // 设备唯一标识
         } catch (JSONException e) {
             e.printStackTrace();
-            Toast.makeText(this, "参数构造失败", Toast.LENGTH_SHORT).show();
+            showToast("参数构造失败");
             return;
         }
 
@@ -165,7 +167,7 @@ public class RegisterActivity extends AppCompatActivity {
                             int code = response.getInt("code"); // 假设后端返回code=200为成功
                             String msg = response.getString("msg");
                             if (code == 200) {
-                                Toast.makeText(RegisterActivity.this, "注册成功！即将跳转到登录页", Toast.LENGTH_SHORT).show();
+                                showToast("注册成功！即将跳转到登录页");
                                 // 延迟跳转登录页
                                 new android.os.Handler().postDelayed(() -> {
                                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -175,18 +177,18 @@ public class RegisterActivity extends AppCompatActivity {
                             } else {
                                 Log.d("RegisterActivity", "onSuccess: ");
                                 Log.d("RegisterActivity", jsonParams.toString());
-                                Toast.makeText(RegisterActivity.this, "注册失败：系统错误", Toast.LENGTH_SHORT).show();
+                                showToast("注册失败：系统错误");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(RegisterActivity.this, "响应解析失败", Toast.LENGTH_SHORT).show();
+                            showToast("响应解析失败");
                         }
                     }
 
                     @Override
                     public void onFailed(String error) {
                         // 注册失败：提示错误信息
-                        Toast.makeText(RegisterActivity.this, "注册失败：" + error, Toast.LENGTH_SHORT).show();
+                        showToast("注册失败：" + error);
                     }
                 }
         );
@@ -215,5 +217,25 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+    }
+
+    // ********** 统一封装：黑色透明Toast + 居中 + 无图标 **********
+    private void showToast(String msg) {
+        if (TextUtils.isEmpty(msg)) return;
+        // 自定义纯文字TextView，无系统默认图标
+        TextView textView = new TextView(this);
+        textView.setText(msg);
+        textView.setTextSize(14);
+        textView.setTextColor(0xFFFFFFFF); // 白色文字
+        textView.setBackgroundColor(0xCC000000); // 黑色半透明背景
+        textView.setPadding(50, 25, 50, 25);
+        textView.setGravity(Gravity.CENTER);
+
+        // 创建Toast并居中显示
+        Toast toast = new Toast(this);
+        toast.setView(textView);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 }

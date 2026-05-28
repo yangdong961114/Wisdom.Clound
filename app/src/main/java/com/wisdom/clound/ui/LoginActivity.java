@@ -3,22 +3,24 @@ package com.wisdom.clound.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.wisdom.clound.R;
+import com.wisdom.clound.utils.HttpUtils;
+import com.wisdom.clound.utils.SPUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.wisdom.clound.utils.HttpUtils;
-import com.wisdom.clound.utils.SPUtils;
 
 public class LoginActivity extends AppCompatActivity {
     // 新增：日志标签
@@ -67,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // 简单校验
                 if (account.isEmpty() || pwd.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "账号/密码不能为空", Toast.LENGTH_SHORT).show();
+                    showToast("账号/密码不能为空");
                     return;
                 }
 
@@ -112,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
             params.put("password", pwd);    // 密码参数
         } catch (JSONException e) {
             Log.e(TAG, "构造登录参数失败：", e);
-            Toast.makeText(this, "参数异常", Toast.LENGTH_SHORT).show();
+            showToast("参数异常");
             return;
         }
 
@@ -136,26 +138,46 @@ public class LoginActivity extends AppCompatActivity {
                                 String memberId = response.getString("data");
                                 SPUtils.saveUserId(getApplicationContext(), memberId);
 
-                                Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                showToast(msg);
                                 // 跳转到MineFragment所在的主页面（假设主页面是MainActivity）
                                 jumpToMineFragment();
                             } else {
                                 // 登录失败（如账号密码错误）
-                                Toast.makeText(LoginActivity.this, "登录失败：" + msg, Toast.LENGTH_SHORT).show();
+                                showToast("登录失败：" + msg);
                             }
                         } catch (JSONException e) {
                             Log.e(TAG, "解析登录返回数据失败：", e);
-                            Toast.makeText(LoginActivity.this, "数据解析异常", Toast.LENGTH_SHORT).show();
+                            showToast("数据解析异常");
                         }
                     }
 
                     @Override
                     public void onFailed(String error) {
                         Log.e(TAG, "登录接口请求失败：" + error);
-                        Toast.makeText(LoginActivity.this, "网络异常：" + error, Toast.LENGTH_SHORT).show();
+                        showToast("网络异常：" + error);
                     }
                 }
         );
+    }
+
+    // ********** 统一封装：黑色透明Toast + 居中 + 无图标 **********
+    private void showToast(String msg) {
+        if (TextUtils.isEmpty(msg)) return;
+        // 自定义纯文字TextView，无系统默认图标
+        TextView textView = new TextView(this);
+        textView.setText(msg);
+        textView.setTextSize(14);
+        textView.setTextColor(0xFFFFFFFF); // 白色文字
+        textView.setBackgroundColor(0xCC000000); // 黑色半透明背景
+        textView.setPadding(50, 25, 50, 25);
+        textView.setGravity(Gravity.CENTER);
+
+        // 创建Toast并居中显示
+        Toast toast = new Toast(this);
+        toast.setView(textView);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     // ********** 新增：跳转到MineFragment **********

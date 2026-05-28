@@ -1,4 +1,4 @@
-package com.wisdom.clound.user;
+package com.wisdom.clound.ui.user;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,7 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,7 +27,6 @@ import com.wisdom.clound.utils.SPUtils;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -61,8 +61,8 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
 
     // 接口地址
     private static final String URL_GET_USER_INFO = "https://api.rzkj.qyqd123.cn/Android/MineFragment/GetUserById";
-    private static final String URL_UPDATE_USER_INFO = "https://api.rzkj.qyqd123.cn/Android/MineFragment/UserEdit"; // 假设的更新接口
-    private static final String URL_UPDATE_AVATAR = "https://api.rzkj.qyqd123.cn/Android/MineFragment/UpdateAvatar"; // 假设的更新头像接口
+    private static final String URL_UPDATE_USER_INFO = "https://api.rzkj.qyqd123.cn/Android/MineFragment/UserEdit";
+    private static final String URL_UPDATE_AVATAR = "https://api.rzkj.qyqd123.cn/Android/MineFragment/UpdateAvatar";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,9 +99,6 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         ivAvatar.setOnClickListener(this);
         tvSave.setOnClickListener(this);
         ivBack.setOnClickListener(this);
-
-        // 账号输入框默认不可编辑（如需可编辑可去掉此行）
-//        etAccount.setEnabled(false);
     }
 
     /**
@@ -252,7 +249,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
-        // 构建请求体（根据实际接口要求调整，此处为示例）
+        // 构建请求体
         RequestBody requestBody = new okhttp3.MultipartBody.Builder()
                 .setType(okhttp3.MultipartBody.FORM)
                 .addFormDataPart("userId", userId)
@@ -277,8 +274,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
                 runOnUiThread(() -> {
                     if (response.isSuccessful()) {
                         showToast("头像更新成功");
-                        // 重新加载头像
-                        loadAvatar(currentAvatarUrl); // 实际应替换为新头像URL
+                        loadAvatar(currentAvatarUrl);
                     } else {
                         showToast("上传头像失败：服务器错误");
                     }
@@ -304,7 +300,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         try {
             params.put("userId", userId);
             params.put("userName", newNickname);
-            params.put("userLoginName", newAccount); // 如需修改账号则传，否则去掉
+            params.put("userLoginName", newAccount);
         } catch (Exception e) {
             e.printStackTrace();
             showToast("参数构建失败");
@@ -331,23 +327,18 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 runOnUiThread(() -> {
-                    if (response.isSuccessful()) {
-                        try {
-                            String responseStr = response.body().string();
-                            JSONObject jsonObject = new JSONObject(responseStr);
-                            if (jsonObject.getInt("code") == 200) {
-                                showToast("修改个人信息成功");
-                                jumpToMineFragment();
-                            } else {
-                                showToast(jsonObject.getString("msg"));
-//                                showToast("保存失败：" + jsonObject.optString("msg", "未知错误"));
-                            }
-                        } catch (Exception e) {
-                            showToast("解析返回结果失败");
-                            e.printStackTrace();
+                    try {
+                        String responseStr = response.body().string();
+                        JSONObject jsonObject = new JSONObject(responseStr);
+                        if (jsonObject.getInt("code") == 200) {
+                            showToast("修改个人信息成功");
+                            jumpToMineFragment();
+                        } else {
+                            showToast(jsonObject.getString("msg"));
                         }
-                    } else {
-                        showToast("保存失败：服务器错误");
+                    } catch (Exception e) {
+                        showToast("解析返回结果失败");
+                        e.printStackTrace();
                     }
                 });
             }
@@ -358,13 +349,10 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.iv_avatar) {
-            // 选择头像
             chooseAvatar();
         } else if (id == R.id.btn_save) {
-            // 保存信息
             saveUserInfo();
         } else if (id == R.id.iv_back) {
-            // 返回
             finish();
         }
     }
@@ -377,29 +365,38 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
         }
 
         if (requestCode == REQUEST_CODE_PICK_AVATAR) {
-            // 选择图片返回
             if (data != null && data.getData() != null) {
                 cropAvatar(data.getData());
             }
         } else if (requestCode == REQUEST_CODE_CROP_AVATAR) {
-            // 裁剪图片返回
             if (tempAvatarFile != null && tempAvatarFile.exists()) {
-                // 显示裁剪后的头像
                 Bitmap bitmap = BitmapFactory.decodeFile(tempAvatarFile.getAbsolutePath());
                 if (bitmap != null) {
                     ivAvatar.setImageBitmap(bitmap);
-                    // 上传头像
                     uploadAvatar();
                 }
             }
         }
     }
 
-    /**
-     * 安全显示Toast
-     */
+    // ==================== 统一封装：黑色透明Toast + 居中 + 无图标 ====================
     private void showToast(String msg) {
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(msg)) return;
+        // 纯文字TextView，无任何系统默认图标
+        TextView textView = new TextView(this);
+        textView.setText(msg);
+        textView.setTextSize(14);
+        textView.setTextColor(0xFFFFFFFF); // 白色文字
+        textView.setBackgroundColor(0xCC000000); // 黑色半透明背景
+        textView.setPadding(50, 25, 50, 25);
+        textView.setGravity(Gravity.CENTER);
+
+        // 屏幕居中显示
+        Toast toast = new Toast(this);
+        toast.setView(textView);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     @Override
@@ -412,12 +409,10 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void jumpToMineFragment() {
-        // 假设MineFragment是在MainActivity中（底部导航/侧边栏切换）
         Intent intent = new Intent(UserInfoActivity.this, com.wisdom.clound.MainActivity.class);
-        // 传递标记，让MainActivity切换到MineFragment（可选，根据你的MainActivity逻辑调整）
         intent.putExtra("target_fragment", "mine");
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // 清除栈顶，避免重复页面
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        finish(); // 关闭登录页
+        finish();
     }
 }

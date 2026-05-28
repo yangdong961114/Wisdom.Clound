@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="15dp"
+    android:paddingTop="20dp">
+
+    <!-- 标题 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择支付方式"
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="15dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F5F5F5"/>
+
+    <!-- 支付方式列表 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
+
+        <!-- 1. 余额支付 -->
+        <LinearLayout
+            android:id="@+id/layout_balance"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="10dp"
+            android:orientation="horizontal">
+
+            <!-- 支付图标 -->
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_order_wallet"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="余额支付"
+                android:textSize="16sp"
+                android:textColor="#333"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_balance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="余额：¥0.00"
+                android:textSize="16sp"
+                android:textColor="#e94d44"
+                android:gravity="end"
+                android:layout_marginRight="10dp"/>
+
+            <!-- 单选按钮 -->
+            <RadioButton
+                android:id="@+id/rb_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"/>
+        </LinearLayout>
+
+        <!-- 分割线 -->
+        <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="#eee"/>
+
+        <!-- 2. 微信支付 -->
+        <LinearLayout
+            android:id="@+id/layout_wechat"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_order_wx"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信支付"
+                android:textSize="16sp"
+                android:textColor="#333"
+                android:layout_marginLeft="10dp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <RadioButton
+                android:id="@+id/rb_wechat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- 分割线 -->
+        <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="#eee"/>
+
+        <!-- 3. 组合支付 -->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/layout_mix"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:paddingHorizontal="10dp"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:src="@drawable/ic_order_all"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="微信加余额支付"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textColor="#333"-->
+<!--                android:layout_marginLeft="10dp"/>-->
+
+<!--            <View-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"/>-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/rb_mix"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"/>-->
+<!--        </LinearLayout>-->
+
+    </LinearLayout>
+
+    <!-- 确认支付按钮 -->
+    <Button
+        android:id="@+id/btn_confirm_pay"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:backgroundTint="#0E4492"
+        android:text="确认支付"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:layout_marginTop="15dp"/>
+
+</LinearLayout>

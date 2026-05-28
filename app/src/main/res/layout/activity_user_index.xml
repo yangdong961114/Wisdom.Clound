@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#f5f5f5"
     android:fitsSystemWindows="true">
@@ -10,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#ffffff">
+        android:background="#dd524d">
 
         <!-- 返回按钮 -->
         <ImageView
@@ -20,7 +21,9 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:src="@drawable/ic_arrow_left"
-            android:scaleType="centerInside"/>
+            android:scaleType="centerInside"
+            android:backgroundTint="#dd524d"
+            app:tint="#FFFFFF"/>
 
         <!-- 标题 -->
         <TextView
@@ -29,7 +32,7 @@
             android:layout_centerInParent="true"
             android:text="个人中心"
             android:textSize="18sp"
-            android:textColor="#333333"
+            android:textColor="#ffffff"
             android:textStyle="bold"/>
 
     </RelativeLayout>
@@ -191,6 +194,39 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="地址管理"
+                android:textSize="16sp"
+                android:textColor="#333333"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_right"
+                android:scaleType="centerInside"/>
+        </LinearLayout>
+
+        <!-- 地址管理条目 -->
+        <LinearLayout
+            android:id="@+id/ll_exit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_item_exit"
+                android:scaleType="centerInside"/>
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="退出账户"
                 android:textSize="16sp"
                 android:textColor="#333333"/>
 

@@ -53,7 +53,7 @@
         android:background="@drawable/shape_edittext_bg"
         android:layout_marginBottom="8dp"/>
 
-    <!-- 省市区三级联动（核心修改） -->
+    <!-- 省市区三级联动 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -106,14 +106,33 @@
         android:background="@drawable/shape_edittext_bg"
         android:layout_marginBottom="16dp"/>
 
+    <!-- 🔥 新增：默认地址开关 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+
+        <Switch
+            android:id="@+id/switch_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设为默认地址"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:thumbTint="#0E4492"
+            android:trackTint="#F56C6C"/>
+    </LinearLayout>
+
     <!-- 保存按钮 -->
     <Button
         android:id="@+id/btn_save_address"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="60dp"
         android:text="保存地址"
         android:textSize="16sp"
-        android:backgroundTint="#409EFF"
+        android:backgroundTint="#0E4492"
         android:textColor="#FFFFFF"/>
 
 </LinearLayout>

@@ -1,136 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 外层ScrollView：保证整体页面可滚动 -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- 最外层：下拉刷新 + 声明app命名空间 -->
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/srl_goods"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="#F5F5F5">
+    android:layout_height="match_parent">
 
-    <!-- 主线性布局：垂直排列所有内容 -->
-    <LinearLayout
+    <!--  ScrollView：实现整体页面滚动 -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="#F5F5F5"
+        android:overScrollMode="never">
 
-        <!-- 顶部红色区域：Logo+搜索框+Banner+Tab选项卡 -->
+        <!-- 主线性布局 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#dd524d"
-            android:orientation="vertical"
-            android:padding="0dp">
+            android:orientation="vertical">
 
-            <!-- Logo + 文字行 -->
+            <!-- 顶部红色区域 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingTop="30dp"
-                android:layout_marginBottom="8dp">
+                android:background="#dd524d"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/iv_logo"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/ic_index_logo"
-                    android:scaleType="fitCenter" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="灵智云|100%正品"
-                    android:textColor="#FFFFFF"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- 搜索框 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/shape_search_bg"
-                android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@android:drawable/ic_menu_search"
-                    app:tint="#999999" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="搜索商品/分类"
-                    android:textColor="#999999"
-                    android:textSize="14sp"
-                    android:layout_marginLeft="8dp"/>
-            </LinearLayout>
-
-            <!-- Banner轮播图 -->
-            <ImageView
-                android:id="@+id/iv_banner"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/ic_index_banner"
-                android:scaleType="centerCrop"
-                android:layout_marginBottom="10dp"/>
-
-            <!-- Tab选项卡容器：自营区/热销区/爆款区 -->
-            <LinearLayout
-                android:id="@+id/ll_tab_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="10dp"
-                android:textSize="22sp"
-                android:paddingLeft="5dp"/>
-        </LinearLayout>
-
-        <!-- 下方商品区域：分类标签 + 商品列表 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:background="#f5f5f5">
-
-            <!-- 横向滚动的分类标签容器：爆款热销/日用商品/数码电子等 -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:overScrollMode="never"
-                android:layout_marginBottom="15dp">
-
+                <!-- Logo + 文字 -->
                 <LinearLayout
-                    android:id="@+id/ll_category_container"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingTop="30dp"
+                    android:layout_marginBottom="8dp">
+
+                    <ImageView
+                        android:id="@+id/iv_logo"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/ic_index_logo"
+                        android:scaleType="fitCenter" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="智灵云|100%正品"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- 搜索框 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/shape_search_bg"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@android:drawable/ic_menu_search"
+                        app:tint="#999999"/> <!-- 修复：app:tint → android:tint -->
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="搜索商品/分类"
+                        android:textColor="#999999"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="8dp"/>
+                </LinearLayout>
+
+                <!-- Banner -->
+                <ImageView
+                    android:id="@+id/iv_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/ic_index_banner"
+                    android:scaleType="centerCrop"
+                    android:layout_marginBottom="10dp"/>
+
+                <!-- Tab容器 -->
+                <LinearLayout
+                    android:id="@+id/ll_tab_container"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical"/>
-            </HorizontalScrollView>
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:paddingLeft="5dp"/>
+            </LinearLayout>
 
-            <!-- 商品列表：下拉刷新 + RecyclerView -->
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/srl_goods"
+            <!-- 商品区域 -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:background="#f5f5f5">
 
+                <!-- 横向分类 -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:overScrollMode="never"
+                    android:layout_marginBottom="15dp">
+
+                    <LinearLayout
+                        android:id="@+id/ll_category_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"/>
+                </HorizontalScrollView>
+
+                <!-- 商品列表 -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_goods"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#F5F5F5"/>
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                    android:background="#F5F5F5"
+                    android:nestedScrollingEnabled="false"/>
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

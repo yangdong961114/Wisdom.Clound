@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#f9f9f9"
+    android:padding="15dp"
+    android:layout_marginBottom="10dp"
+    android:radius="8dp">
+
+    <!-- 激活码 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="激活码："
+        android:textSize="16sp"
+        android:textColor="#333"/>
+
+    <TextView
+        android:id="@+id/tv_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="#dd524d"
+        android:textStyle="bold"
+        android:layout_marginVertical="5dp"/>
+
+    <!-- 输入账号 + 激活按钮 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/et_account"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:hint="请输入激活账号"
+            android:paddingHorizontal="10dp"
+            android:background="@drawable/shape_search_bg"
+            android:textSize="14sp"/>
+
+        <Button
+            android:id="@+id/btn_activate"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:text="立即激活"
+            android:background="@drawable/shape_default_bg"
+            android:textColor="#fff"
+            android:layout_marginLeft="10dp"
+            android:paddingHorizontal="15dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

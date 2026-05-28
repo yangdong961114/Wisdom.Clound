@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.wisdom.clound.R;
-import com.wisdom.clound.goods.DetailsActivity;
+import com.wisdom.clound.ui.goods.GoodsDetailsActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -100,6 +101,7 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
+
     /**
      * 初始化OkHttpClient
      */
@@ -136,34 +138,12 @@ public class HomeFragment extends Fragment {
         goodsAdapter = new GoodsAdapter(goodsList);
         rvGoods.setAdapter(goodsAdapter);
 
-        // 下拉刷新配置
+        // 下拉刷新配置（移到外层，正常生效）
         srlGoods.setColorSchemeColors(Color.RED); // 刷新进度条颜色
         srlGoods.setOnRefreshListener(() -> {
             // 下拉刷新：重置页码为1，重新加载当前分类商品
             currentPage = 1;
             getGoodsListFromApi(currentTypesId, currentPage, true);
-        });
-
-        // 上拉加载更多（滑动监听）
-        rvGoods.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                GridLayoutManager manager = (GridLayoutManager) recyclerView.getLayoutManager();
-                if (manager == null) return;
-
-                // 获取最后一个可见项的位置
-                int lastVisibleItemPosition = manager.findLastCompletelyVisibleItemPosition();
-
-                // 滑动到底部 + 有更多数据 + 不在加载中 → 加载下一页
-                if (lastVisibleItemPosition == goodsList.size() - 1
-                        && hasMoreData
-                        && !isLoading
-                        && dy > 0) {
-                    currentPage++;
-                    getGoodsListFromApi(currentTypesId, currentPage, false);
-                }
-            }
         });
     }
 
@@ -219,13 +199,13 @@ public class HomeFragment extends Fragment {
                     loadImage(bannerUrl, ivBanner);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "解析图片失败", Toast.LENGTH_SHORT).show();
+                    showToast("解析图片失败");
                 }
             }
 
             @Override
             public void onFailed(String error) {
-                Toast.makeText(getActivity(), "获取图片失败：" + error, Toast.LENGTH_SHORT).show();
+                showToast("获取图片失败：" + error);
             }
         });
     }
@@ -240,7 +220,7 @@ public class HomeFragment extends Fragment {
                     addTabsToLayout();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "解析选项卡失败", Toast.LENGTH_SHORT).show();
+                    showToast("解析选项卡失败");
                 }
             }
 
@@ -267,7 +247,7 @@ public class HomeFragment extends Fragment {
                     addCategoriesToLayout();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "解析分类失败：" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    showToast("解析分类失败：" + e.getMessage());
                 }
             }
 
@@ -286,13 +266,7 @@ public class HomeFragment extends Fragment {
         isLoading = true;
 
         // 显示加载状态
-        if (isRefresh) {
-            srlGoods.setRefreshing(true);
-        } else {
-            // 加载更多时添加"加载中"提示
-            goodsList.add(new GoodsBean(-1, "加载中...", "", 0, ""));
-            goodsAdapter.notifyItemInserted(goodsList.size() - 1);
-        }
+        srlGoods.setRefreshing(true);
 
         // 拼接商品API地址
         String url = "/HomeFragment/GetGoodsList?typesId=" + typesId + "&page=" + page;
@@ -301,26 +275,19 @@ public class HomeFragment extends Fragment {
             @Override
             public void onSuccess(String result) {
                 try {
-                    // 解析商品数据（适配你的API格式）
+                    // 解析商品数据
                     List<GoodsBean> newGoodsList = parseGoodsData(result);
 
-                    // 处理数据：刷新=清空旧数据，加载更多=追加
+                    // 刷新=清空旧数据
                     if (isRefresh) {
                         goodsList.clear();
-                        hasMoreData = true; // 刷新时重置有更多数据
-                    } else {
-                        // 移除加载中提示
-                        goodsList.remove(goodsList.size() - 1);
                     }
 
                     // 添加新数据
                     if (newGoodsList.size() > 0) {
                         goodsList.addAll(newGoodsList);
                     } else {
-                        hasMoreData = false; // 没有更多数据
-                        if (!isRefresh) {
-                            Toast.makeText(getActivity(), "已加载全部商品", Toast.LENGTH_SHORT).show();
-                        }
+                        showToast("已加载全部商品");
                     }
 
                     // 更新列表
@@ -328,7 +295,7 @@ public class HomeFragment extends Fragment {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(getActivity(), "解析商品失败：" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    showToast("解析商品失败：" + e.getMessage());
                 } finally {
                     // 关闭加载状态
                     isLoading = false;
@@ -338,15 +305,10 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailed(String error) {
-                Toast.makeText(getActivity(), "获取商品失败：" + error, Toast.LENGTH_SHORT).show();
+                showToast("获取商品失败：" + error);
                 // 关闭加载状态
                 isLoading = false;
                 srlGoods.setRefreshing(false);
-                // 移除加载中提示
-                if (!isRefresh && !goodsList.isEmpty() && goodsList.get(goodsList.size() - 1).getId() == -1) {
-                    goodsList.remove(goodsList.size() - 1);
-                    goodsAdapter.notifyItemRemoved(goodsList.size());
-                }
             }
         });
     }
@@ -536,8 +498,6 @@ public class HomeFragment extends Fragment {
                 currentTypesId = category.getId();
                 currentPage = 1;
                 getGoodsListFromApi(currentTypesId, currentPage, true);
-
-                // Toast.makeText(getActivity(), "切换分类：" + category.getTypeName() + "，typesId=" + currentTypesId, Toast.LENGTH_SHORT).show();
             });
 
             // 默认选中第一个分类（typesId=1）
@@ -564,13 +524,31 @@ public class HomeFragment extends Fragment {
                 is.close();
             } catch (Exception e) {
                 e.printStackTrace();
-                mainHandler.post(() -> {
-                    // 图片加载失败时显示默认图
-                    // imageView.setImageResource(R.mipmap.ic_launcher);
-                    Toast.makeText(getActivity(), "图片加载失败", Toast.LENGTH_SHORT).show();
-                });
+                mainHandler.post(() -> showToast("图片加载失败"));
             }
         }).start();
+    }
+
+    // ********** 统一封装：黑色透明Toast + 居中 + 无图标 **********
+    private void showToast(String msg) {
+        if (TextUtils.isEmpty(msg) || getContext() == null) {
+            return;
+        }
+        // 自定义纯文字TextView，无系统默认图标
+        TextView textView = new TextView(getContext());
+        textView.setText(msg);
+        textView.setTextSize(14);
+        textView.setTextColor(0xFFFFFFFF); // 白色文字
+        textView.setBackgroundColor(0xCC000000); // 黑色半透明背景
+        textView.setPadding(50, 25, 50, 25);
+        textView.setGravity(Gravity.CENTER);
+
+        // 创建Toast并居中显示
+        Toast toast = new Toast(getContext());
+        toast.setView(textView);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     // -------------------------- 数据模型类 --------------------------
@@ -674,17 +652,9 @@ public class HomeFragment extends Fragment {
             holder.itemView.setOnClickListener(v -> {
                 if (getActivity() == null) return;
 
-                // 1. 构建Intent，跳转到DetailsActivity
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-
-                // 2. 传递商品数据（根据需求传递，示例传递核心字段）
-                intent.putExtra("goods_id", goods.getId());
-                intent.putExtra("goods_name", goods.getGoodsName());
-                intent.putExtra("goods_image", goods.getGoodsImage());
-                intent.putExtra("goods_price", goods.getPrice());
-                intent.putExtra("goods_description", goods.getDescription());
-
-                // 3. 启动详情页
+                // 跳转到 GoodsDetailsActivity，仅传递商品ID
+                Intent intent = new Intent(getActivity(), GoodsDetailsActivity.class);
+                intent.putExtra("goodsId", goods.getId());
                 getActivity().startActivity(intent);
             });
         }

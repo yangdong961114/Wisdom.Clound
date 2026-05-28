@@ -16,10 +16,11 @@
         <!-- 返回按钮 -->
         <Button
             android:id="@+id/btn_back"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:text="返回"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
             android:textSize="16sp"
+            android:background="@drawable/ic_arrow_left"
             android:backgroundTint="#F5F5F5"
             android:textColor="#333333"/>
 
@@ -35,7 +36,7 @@
             android:layout_height="60dp"
             android:text="添加地址"
             android:textSize="16sp"
-            android:backgroundTint="#409EFF"
+            android:backgroundTint="#0E4492"
             android:textColor="#FFFFFF"/>
     </LinearLayout>
 

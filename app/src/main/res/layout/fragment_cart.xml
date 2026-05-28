@@ -4,10 +4,142 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="#F5F5F5"
+    android:fitsSystemWindows="true">
+
+    <!-- 有数据时的容器（地址+商品列表） -->
+    <LinearLayout
+        android:id="@+id/ll_cart_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- 收货地址区域（可点击） -->
+        <LinearLayout
+            android:id="@+id/ll_address_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="@drawable/shape_search_bg"
+            android:layout_marginVertical="4dp"
+            android:layout_marginHorizontal="8dp"
+            android:backgroundTint="#F5F5F5">
+
+            <!-- 默认地址标签 -->
+<!--            <TextView-->
+<!--                android:id="@+id/tv_default_tag"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="收货地址"-->
+<!--                android:textColor="#FFFFFF"-->
+<!--                android:background="@drawable/shape_default_bg"-->
+<!--                android:paddingHorizontal="14dp"-->
+<!--                android:paddingVertical="2dp"-->
+<!--                android:textSize="16sp"/>-->
+
+            <!-- 姓名+电话 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="月清璃"
+                    android:textSize="16sp"
+                    android:textColor="#333333"/>
+
+                <TextView
+                    android:id="@+id/tv_user_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="13322225533"
+                    android:textSize="16sp"
+                    android:textColor="#333333"/>
+            </LinearLayout>
+
+            <!-- 地址信息 -->
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="北京北京市东城区 智学苑1-1-1021"
+                android:textSize="14sp"
+                android:textColor="#666666"/>
+
+            <!-- 分割线 -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="#eeeeee"
+                android:layout_marginLeft="15dp"/>
+        </LinearLayout>
+
+        <!-- 商品列表 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_cart_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingHorizontal="8dp"/>
+
+        <!-- 底部结算栏 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#FFFFFF"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="12dp">
+
+            <CheckBox
+                android:id="@+id/cb_select_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#0E4492"
+                android:text="全选"
+                android:textColor="#333333"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tv_total_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="合计: ¥0.00"
+                android:textColor="#dd524d"
+                android:textSize="18sp"
+                android:paddingRight="10dp"/>
+
+            <Button
+                android:id="@+id/btn_checkout"
+                android:layout_width="120dp"
+                android:layout_height="55dp"
+                android:text="结算"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#0E4492"
+                android:textSize="16sp"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <!-- 空购物车容器（垂直居中） -->
     <LinearLayout
+        android:id="@+id/ll_empty_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -37,13 +169,12 @@
         <Button
             android:id="@+id/btn_go_shop"
             android:layout_width="140dp"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:text="去商城逛逛"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:background="@drawable/shape_cart_btn"
+            android:backgroundTint="#0E4492"
             android:padding="0dp"/>
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

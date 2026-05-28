@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:background="@drawable/shape_search_bg"
+    android:layout_marginVertical="4dp"
+    android:gravity="center_vertical">
+
+    <!-- 选择框 -->
+    <CheckBox
+        android:id="@+id/cb_goods_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#0E4492"
+        android:layout_marginRight="8dp"/>
+
+    <!-- 商品图片 -->
+    <ImageView
+        android:id="@+id/iv_goods_avatar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/shape_search_bg"
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginRight="8dp"/>
+
+    <!-- 商品信息 -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- 商品名称 -->
+        <TextView
+            android:id="@+id/tv_goods_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="小黄油脆苹果拿铁1"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:maxLines="2"
+            android:ellipsize="end"/>
+
+        <!-- 价格 -->
+        <TextView
+            android:id="@+id/tv_goods_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥3000.00"
+            android:textSize="16sp"
+            android:textColor="#dd524d"
+            android:layout_marginTop="4dp"/>
+
+        <!-- 数量操作 + 删除按钮 组合布局 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical">
+
+            <!-- 数量加减 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/btn_minus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="-"
+                    android:backgroundTint="#0E4492"
+                    android:textSize="16sp"
+                    android:padding="0dp"/>
+                <TextView
+                    android:id="@+id/tv_goods_num"
+                    android:layout_width="36dp"
+                    android:layout_height="28dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="7"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:background="#F5F5F5"/>
+                <Button
+                    android:id="@+id/btn_plus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="+"
+                    android:backgroundTint="#0E4492"
+                    android:textSize="16sp"
+                    android:padding="0dp"/>
+            </LinearLayout>
+
+            <!-- 右下角 删除按钮 -->
+            <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:background="@drawable/shape_default_bg"
+                android:gravity="center"
+                android:text="删除"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

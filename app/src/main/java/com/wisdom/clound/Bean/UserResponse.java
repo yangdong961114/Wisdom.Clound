@@ -52,6 +52,9 @@ public class UserResponse {
         @SerializedName("Wallet")
         private String wallet;
 
+        @SerializedName("Amount")
+        private String amount;
+
         @SerializedName("Points")
         private String points;
 
@@ -97,6 +100,14 @@ public class UserResponse {
 
         public void setUserFee(String fee) {
             this.fee = fee;
+        }
+
+        public String getUserAmount(){
+            return amount;
+        }
+
+        public void setUserAmount(String amount) {
+            this.amount = amount;
         }
 
         public String getUserWallet(){

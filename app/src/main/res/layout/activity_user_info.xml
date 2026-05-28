@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#f5f5f5"
     android:orientation="vertical"
     android:fitsSystemWindows="true">
@@ -10,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#ffffff">
+        android:background="#dd524d">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -18,14 +19,16 @@
             android:layout_height="24dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            android:src="@drawable/ic_arrow_left" />
+            android:backgroundTint="#ffffff"
+            android:src="@drawable/ic_arrow_left"
+            app:tint="#ffffff"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="个人信息管理"
-            android:textColor="#333333"
+            android:textColor="#ffffff"
             android:textSize="18sp"
             android:textStyle="bold" />
     </RelativeLayout>

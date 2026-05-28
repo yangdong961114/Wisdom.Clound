@@ -46,10 +46,10 @@ public class UserAddressAdapter extends RecyclerView.Adapter<UserAddressAdapter.
         // 绑定数据
         holder.tvUserName.setText(address.getUserName());
         holder.tvUserPhone.setText(address.getUserPhone());
-        holder.tvAddress.setText(address.getCity() + " " + address.getCityDesc());
+        holder.tvAddress.setText(address.getCityDesc() + " " + address.getAddress());
 
         // 默认地址标签显示
-        if (address.getIsDefault() == 1) {
+        if (address.getIsDefault()) {
             holder.tvDefaultTag.setVisibility(View.VISIBLE);
         } else {
             holder.tvDefaultTag.setVisibility(View.GONE);
