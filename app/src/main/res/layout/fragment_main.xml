@@ -184,7 +184,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="账户余额"
+                    android:text="今日收益"
                     android:textSize="16sp"
                     android:textColor="#333333"/>
 
@@ -221,7 +221,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="易货积分"
+                    android:text="观广次数"
                     android:textSize="16sp"
                     android:textColor="#333333"/>
 
@@ -260,7 +260,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="易货通"
+                    android:text="有效条目"
                     android:textSize="16sp"
                     android:textColor="#333333"/>
 
