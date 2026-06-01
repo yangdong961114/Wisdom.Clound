@@ -238,9 +238,9 @@ public class BounsIndexActivity extends AppCompatActivity {
             // ============== 状态颜色（两种类型通用） ==============
             holder.tvStatus.setText(bean.getStrStatus());
             if (bean.getIsStatus() == 0) {
-                holder.tvStatus.setTextColor(0xFF0E4492); // 进行中
+                holder.tvStatus.setTextColor(getResources().getColor(R.color.blue));
             } else {
-                holder.tvStatus.setTextColor(0xFFdd524d); // 已完成
+                holder.tvStatus.setTextColor(getResources().getColor(R.color.red));
             }
             // 日期
             holder.tvDate.setText(bean.getStrCreateDate());

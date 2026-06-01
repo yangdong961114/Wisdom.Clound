@@ -22,6 +22,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_nav_menu"
         app:itemIconTint="@color/tab_color_selector"
-        app:itemTextColor="@color/tab_text_selected"/>
+        app:itemTextColor="@color/tab_unselected"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#dd524d"
+        android:background="@color/red"
         android:gravity="center_vertical"
         android:paddingLeft="15dp">
 
@@ -39,11 +39,11 @@
         android:layout_height="50dp"
         android:layout_below="@id/top_bar"
         android:background="#FFFFFF"
-        app:tabIndicatorColor="#dd524d"
+        app:tabIndicatorColor="@color/red"
         app:tabIndicatorHeight="2dp"
         app:tabMode="fixed"
         app:tabGravity="fill"
-        app:tabSelectedTextColor="#dd524d"
+        app:tabSelectedTextColor="@color/red"
         app:tabTextColor="#666666"/>
 
     <!-- 订单列表 ViewPager2 -->

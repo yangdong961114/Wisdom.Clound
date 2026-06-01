@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#dd524d"
+        android:background="@color/red"
         android:orientation="vertical">
 
         <!-- 第一行：Logo + 文字（和首页一致） -->
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:scrollbars="none"
             android:overScrollMode="never"
-            android:background="#dd524d"
+            android:background="@color/red"
             android:layout_marginBottom="10dp"
             android:padding="5dp">
 

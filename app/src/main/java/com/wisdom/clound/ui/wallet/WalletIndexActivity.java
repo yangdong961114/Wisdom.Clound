@@ -1,5 +1,7 @@
 package com.wisdom.clound.ui.wallet;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -462,7 +465,7 @@ public class WalletIndexActivity extends AppCompatActivity {
                 tv.setPadding(15, 0, 15, 0);
 
                 if (bean.getKey() == currentTypesId) {
-                    tv.setTextColor(0xFFdd524d);
+                    tv.setTextColor(getResources().getColor(R.color.red));
                     selectedTab = tv;
                 } else {
                     tv.setTextColor(0xFF666666);
@@ -471,7 +474,7 @@ public class WalletIndexActivity extends AppCompatActivity {
                 int finalKey = bean.getKey();
                 tv.setOnClickListener(v -> {
                     if (selectedTab != null) selectedTab.setTextColor(0xFF666666);
-                    tv.setTextColor(0xFFdd524d);
+                    tv.setTextColor(getResources().getColor(R.color.red));
                     selectedTab = tv;
                     currentTypesId = finalKey;
                     getWalletData();
@@ -523,9 +526,9 @@ public class WalletIndexActivity extends AppCompatActivity {
             holder.tvWallet.setText(walletText);
 
             if (walletText != null && walletText.startsWith("-")) {
-                holder.tvWallet.setTextColor(0xFF0E4492);
+                holder.tvWallet.setTextColor(getResources().getColor(R.color.blue));
             } else {
-                holder.tvWallet.setTextColor(0xFFdd524d);
+                holder.tvWallet.setTextColor(getResources().getColor(R.color.red));
             }
 
             holder.tvTime.setText(bean.getTime());

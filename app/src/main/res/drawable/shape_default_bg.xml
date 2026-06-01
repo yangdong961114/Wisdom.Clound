@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <gradient
-        android:startColor="#dd524d"
+        android:startColor="@color/red"
         android:endColor="#C82333"
         android:angle="0"/> <!-- 从左到右渐变 -->
     <corners android:radius="5dp"/> <!-- 半圆角，大气 -->

@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:text="分红金额：0"
             android:textSize="16sp"
-            android:textColor="#dd524d"
+            android:textColor="@color/red"
             android:gravity="center"/>
 
         <TextView
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:text="今日可分：0"
             android:textSize="16sp"
-            android:textColor="#0E4492"
+            android:textColor="@color/blue"
             android:gravity="center"/>
     </LinearLayout>
 

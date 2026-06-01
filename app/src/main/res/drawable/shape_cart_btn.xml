@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <!-- 主色调背景（和首页/视频页红色一致） -->
-    <solid android:color="#dd524d"/>
+    <solid android:color="@color/red"/>
     <!-- 圆角（和搜索框一致，17dp） -->
     <corners android:radius="17dp"/>
     <!-- 去掉按钮默认边框 -->

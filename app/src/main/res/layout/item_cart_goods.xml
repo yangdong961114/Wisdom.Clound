@@ -13,7 +13,7 @@
         android:id="@+id/cb_goods_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#0E4492"
+        android:backgroundTint="@color/blue"
         android:layout_marginRight="8dp"/>
 
     <!-- 商品图片 -->
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:text="¥3000.00"
             android:textSize="16sp"
-            android:textColor="#dd524d"
+            android:textColor="@color/red"
             android:layout_marginTop="4dp"/>
 
         <!-- 数量操作 + 删除按钮 组合布局 -->
@@ -73,7 +73,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:text="-"
-                    android:backgroundTint="#0E4492"
+                    android:backgroundTint="@color/blue"
                     android:textSize="16sp"
                     android:padding="0dp"/>
                 <TextView
@@ -91,7 +91,7 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="5dp"
                     android:text="+"
-                    android:backgroundTint="#0E4492"
+                    android:backgroundTint="@color/blue"
                     android:textSize="16sp"
                     android:padding="0dp"/>
             </LinearLayout>

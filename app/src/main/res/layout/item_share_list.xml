@@ -58,7 +58,7 @@
         android:id="@+id/btn_transfer"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:backgroundTint="#0E4492"
+        android:backgroundTint="@color/blue"
         android:text="转账"
         android:textColor="#fff"
         android:paddingHorizontal="12dp"/>

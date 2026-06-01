@@ -12,7 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#dd524d"
+        android:background="@color/red"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
@@ -47,7 +47,7 @@
         app:tabGravity="fill"
         app:tabMode="fixed"
         app:tabSelectedTextColor="#e94d44"
-        app:tabTextColor="#0E4492"
+        app:tabTextColor="@color/blue"
         app:tabIndicatorColor="#e94d44"
         app:tabIndicatorHeight="2dp"
         app:tabBackground="@null">
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:text="0"
                 android:textSize="24sp"
-                android:textColor="#0E4492"
+                android:textColor="@color/blue"
                 android:layout_marginTop="8dp" />
         </LinearLayout>
 
@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:text="0"
                 android:textSize="24sp"
-                android:textColor="#0E4492"
+                android:textColor="@color/blue"
                 android:layout_marginTop="8dp" />
         </LinearLayout>
     </LinearLayout>

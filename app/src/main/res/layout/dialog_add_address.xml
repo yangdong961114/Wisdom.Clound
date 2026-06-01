@@ -121,7 +121,7 @@
             android:text="设为默认地址"
             android:textSize="14sp"
             android:textColor="#666666"
-            android:thumbTint="#0E4492"
+            android:thumbTint="@color/blue"
             android:trackTint="#F56C6C"/>
     </LinearLayout>
 
@@ -132,7 +132,7 @@
         android:layout_height="60dp"
         android:text="保存地址"
         android:textSize="16sp"
-        android:backgroundTint="#0E4492"
+        android:backgroundTint="@color/blue"
         android:textColor="#FFFFFF"/>
 
 </LinearLayout>

@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:textColor="#dd524d"
+        android:textColor="@color/red"
         android:textStyle="bold"/>
 
     <!-- 时间 -->

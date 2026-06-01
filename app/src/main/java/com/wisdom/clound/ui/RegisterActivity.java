@@ -177,7 +177,7 @@ public class RegisterActivity extends AppCompatActivity {
                             } else {
                                 Log.d("RegisterActivity", "onSuccess: ");
                                 Log.d("RegisterActivity", jsonParams.toString());
-                                showToast("注册失败：系统错误");
+                                showToast(msg);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

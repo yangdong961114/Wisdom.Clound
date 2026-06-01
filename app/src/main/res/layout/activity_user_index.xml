@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#dd524d">
+        android:background="@color/red">
 
         <!-- 返回按钮 -->
         <ImageView
@@ -22,7 +22,7 @@
             android:layout_marginLeft="20dp"
             android:src="@drawable/ic_arrow_left"
             android:scaleType="centerInside"
-            android:backgroundTint="#dd524d"
+            android:backgroundTint="@color/red"
             app:tint="#FFFFFF"/>
 
         <!-- 标题 -->

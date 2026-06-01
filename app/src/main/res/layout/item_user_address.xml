@@ -73,7 +73,7 @@
             android:layout_height="40dp"
             android:text="修改"
             android:textSize="14sp"
-            android:backgroundTint="#0E4492"
+            android:backgroundTint="@color/blue"
             android:textColor="#FFFFFF"/>
 
         <Button
