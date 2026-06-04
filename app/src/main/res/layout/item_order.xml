@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:textColor="#e94d44"
+            android:textColor="@color/red"
             android:textStyle="bold"/>
     </LinearLayout>
 
@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:textColor="#e94d44"
+        android:textColor="@color/red"
         android:layout_marginTop="5dp"/>
 
     <View
@@ -129,7 +129,7 @@
             android:id="@+id/btn_action3"
             android:layout_width="120dp"
             android:layout_height="55dp"
-            android:backgroundTint="#e94d44"
+            android:backgroundTint="@color/red"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:layout_marginHorizontal="4dp"

@@ -3,152 +3,187 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/red"
+    android:background="@drawable/shape_background"
     android:orientation="vertical"
     android:paddingLeft="30dp"
     android:paddingRight="30dp">
 
-    <!--    <ImageButton-->
-    <!--        android:id="@+id/btn_back"-->
-    <!--        android:layout_width="40dp"-->
-    <!--        android:layout_height="40dp"-->
-    <!--        android:layout_marginTop="30dp"-->
-    <!--        android:layout_marginBottom="20dp"-->
-    <!--        android:background="@null"-->
-    <!--        android:scaleType="centerInside"-->
-    <!--        android:src="@drawable/ic_back"-->
-    <!--        app:tint="#FFFFFF" />-->
-
+    <!-- 👇 核心：包裹所有上方内容，自动填充剩余空间，把备案顶到底部（和注册页结构一致） -->
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="30dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginRight="15dp"
-            android:src="@drawable/ic_index_logo" />
+        <!--    <ImageButton-->
+        <!--        android:id="@+id/btn_back"-->
+        <!--        android:layout_width="40dp"-->
+        <!--        android:layout_height="40dp"-->
+        <!--        android:layout_marginTop="30dp"-->
+        <!--        android:layout_marginBottom="20dp"-->
+        <!--        android:background="@null"-->
+        <!--        android:scaleType="centerInside"-->
+        <!--        android:src="@drawable/ic_back"-->
+        <!--        app:tint="#FFFFFF" />-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/ic_index_logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="智灵云APP\n欢迎您的加入"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- 第三行：账号输入框（下边框 + 左侧icon） -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="15dp">
+
+            <!-- 账号左侧icon -->
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_account"
+                app:tint="#FFFFFF" />
+
+            <!-- 账号输入框（仅下边框） -->
+            <EditText
+                android:id="@+id/et_account"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edittext_bottom_border"
+                android:hint="请输入账号"
+                android:textColorHint="#ffffff"
+                android:paddingLeft="50dp"
+                android:paddingRight="15dp"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textCursorDrawable="@drawable/cursor_white"/>
+        </RelativeLayout>
+
+        <!-- 第四行：密码输入框（下边框 + 左侧icon + 显示/隐藏密码） -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="25dp">
+
+            <!-- 密码左侧icon -->
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_pwd"
+                app:tint="#FFFFFF" />
+
+            <!-- 密码输入框（仅下边框） -->
+            <EditText
+                android:id="@+id/et_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edittext_bottom_border"
+                android:hint="请输入密码"
+                android:textColorHint="#ffffff"
+                android:inputType="textPassword"
+                android:paddingLeft="50dp"
+                android:paddingRight="60dp"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textCursorDrawable="@drawable/cursor_white"/>
+
+            <!-- 密码显示/隐藏切换按钮 -->
+            <ImageButton
+                android:id="@+id/btn_toggle_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_eye_close"
+                app:tint="#ffffff"/>
+        </RelativeLayout>
+
+        <!-- 登录按钮：TextView替代Button -->
+        <TextView
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/shape_main_bg"
+            android:elevation="2dp"
+            android:layout_marginBottom="20dp"
+            android:text="登录"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="还没有账号？立即注册"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/btn_back"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="返回继续浏览"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+    <!-- 👆 上方内容包裹结束 -->
+
+    <!-- ====================== 固定在最底部的备案信息（和注册页完全一致） ====================== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingBottom="15dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="智灵云APP\n欢迎您的加入"
+            android:text="辽ICP备2026008429号-3A"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:textSize="14sp"/>
 
-    <!-- 第三行：账号输入框（下边框 + 左侧icon） -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="15dp">
-
-        <!-- 账号左侧icon -->
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:src="@drawable/ic_account"
-            app:tint="#FFFFFF" />
-
-        <!-- 账号输入框（仅下边框） -->
-        <EditText
-            android:id="@+id/et_account"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/edittext_bottom_border"
-            android:hint="请输入账号"
-            android:textColorHint="#ffffff"
-            android:paddingLeft="50dp"
-            android:paddingRight="15dp"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textCursorDrawable="@drawable/cursor_white"/>
-    </RelativeLayout>
-
-    <!-- 第四行：密码输入框（下边框 + 左侧icon + 显示/隐藏密码） -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="25dp">
-
-        <!-- 密码左侧icon -->
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:src="@drawable/ic_pwd"
-            app:tint="#FFFFFF" />
-
-        <!-- 密码输入框（仅下边框） -->
-        <EditText
-            android:id="@+id/et_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/edittext_bottom_border"
-            android:hint="请输入密码"
-            android:textColorHint="#ffffff"
-            android:inputType="textPassword"
-            android:paddingLeft="50dp"
-            android:paddingRight="60dp"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textCursorDrawable="@drawable/cursor_white"/>
-
-        <!-- 密码显示/隐藏切换按钮 -->
-        <ImageButton
-            android:id="@+id/btn_toggle_pwd"
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:background="@null"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_eye_close"
-            app:tint="#ffffff"/>
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:text="辽宁亿润美家供应链管理有限公司"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp"/>
 
-    <!-- 登录按钮：TextView替代Button -->
-    <TextView
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/login_btn_bg"
-        android:elevation="2dp"
-        android:layout_marginBottom="20dp"
-        android:text="登录"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:clickable="true"
-        android:focusable="true" />
-
-    <TextView
-        android:id="@+id/tv_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="还没有账号？立即注册"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:id="@+id/btn_back"
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="返回继续浏览"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:layout_gravity="center_horizontal" />
+    </LinearLayout>
 
 </LinearLayout>

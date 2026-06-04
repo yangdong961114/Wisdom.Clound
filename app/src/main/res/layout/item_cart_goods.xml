@@ -14,7 +14,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/blue"
-        android:layout_marginRight="8dp"/>
+        android:layout_marginRight="8dp"
+        app:buttonTint="@color/blue"
+        xmlns:app="http://schemas.android.com/apk/res-auto"/>
 
     <!-- 商品图片 -->
     <ImageView
@@ -23,7 +25,7 @@
         android:layout_height="80dp"
         android:scaleType="centerCrop"
         android:background="@drawable/shape_search_bg"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_index_logo"
         android:layout_marginRight="8dp"/>
 
     <!-- 商品信息 -->
@@ -73,9 +75,11 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:text="-"
-                    android:backgroundTint="@color/blue"
+                    android:background="@drawable/shape_background"
                     android:textSize="16sp"
-                    android:padding="0dp"/>
+                    android:padding="0dp"
+                    app:backgroundTint="@color/blue"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"/>
                 <TextView
                     android:id="@+id/tv_goods_num"
                     android:layout_width="36dp"
@@ -91,9 +95,11 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="5dp"
                     android:text="+"
-                    android:backgroundTint="@color/blue"
+                    android:background="@drawable/shape_background"
                     android:textSize="16sp"
-                    android:padding="0dp"/>
+                    android:padding="0dp"
+                    app:backgroundTint="@color/blue"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"/>
             </LinearLayout>
 
             <!-- 右下角 删除按钮 -->
@@ -101,7 +107,7 @@
                 android:id="@+id/tv_delete"
                 android:layout_width="60dp"
                 android:layout_height="30dp"
-                android:background="@drawable/shape_default_bg"
+                android:background="@drawable/shape_main_bg"
                 android:gravity="center"
                 android:text="删除"
                 android:textColor="#FFFFFF"

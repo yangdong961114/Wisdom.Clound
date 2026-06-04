@@ -60,16 +60,18 @@
                 android:layout_weight="1"
                 android:text="余额：¥0.00"
                 android:textSize="16sp"
-                android:textColor="#e94d44"
+                android:textColor="@color/blue"
                 android:gravity="end"
                 android:layout_marginRight="10dp"/>
 
-            <!-- 单选按钮 -->
+            <!-- 兼容版单选按钮（颜色必生效） -->
             <RadioButton
                 android:id="@+id/rb_balance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"/>
+                android:checked="true"
+                app:buttonTint="@color/blue"
+                xmlns:app="http://schemas.android.com/apk/res-auto"/>
         </LinearLayout>
 
         <!-- 分割线 -->
@@ -102,47 +104,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
 
+            <!-- 兼容版单选按钮（颜色必生效） -->
             <RadioButton
                 android:id="@+id/rb_wechat"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:checked="false"
+                app:buttonTint="@color/blue"
+                xmlns:app="http://schemas.android.com/apk/res-auto"/>
         </LinearLayout>
 
         <!-- 分割线 -->
         <View android:layout_width="match_parent" android:layout_height="0.5dp" android:background="#eee"/>
-
-        <!-- 3. 组合支付 -->
-<!--        <LinearLayout-->
-<!--            android:id="@+id/layout_mix"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:paddingHorizontal="10dp"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <ImageView-->
-<!--                android:layout_width="30dp"-->
-<!--                android:layout_height="30dp"-->
-<!--                android:src="@drawable/ic_order_all"/>-->
-
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="微信加余额支付"-->
-<!--                android:textSize="16sp"-->
-<!--                android:textColor="#333"-->
-<!--                android:layout_marginLeft="10dp"/>-->
-
-<!--            <View-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1"/>-->
-
-<!--            <RadioButton-->
-<!--                android:id="@+id/rb_mix"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"/>-->
-<!--        </LinearLayout>-->
 
     </LinearLayout>
 
@@ -151,10 +124,14 @@
         android:id="@+id/btn_confirm_pay"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:backgroundTint="@color/blue"
         android:text="确认支付"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:elevation="8dp"
+        android:stateListAnimator="@null"
+        android:background="@drawable/shape_main_bg"
+        app:backgroundTint="@color/blue"
+        xmlns:app="http://schemas.android.com/apk/res-auto"/>
 
 </LinearLayout>

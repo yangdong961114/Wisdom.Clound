@@ -36,8 +36,10 @@
             android:layout_height="60dp"
             android:text="添加地址"
             android:textSize="16sp"
-            android:backgroundTint="@color/blue"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            android:background="@drawable/shape_main_bg"
+            app:backgroundTint="@color/blue"
+            xmlns:app="http://schemas.android.com/apk/res-auto"/>
     </LinearLayout>
 
     <!-- 地址列表 -->

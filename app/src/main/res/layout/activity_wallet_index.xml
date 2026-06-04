@@ -12,7 +12,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/red">
+        android:background="@drawable/shape_background">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -169,7 +169,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- ====================== 优化后：充值/提现 按钮 ====================== -->
+    <!-- 充值/提现 按钮（带立体阴影 + 圆角） -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -183,24 +183,29 @@
         <Button
             android:id="@+id/btn_recharge"
             android:layout_width="140dp"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:text="充值"
             android:textColor="#fff"
             android:textSize="15sp"
             android:backgroundTint="@color/red"
-            android:layout_marginRight="25dp"/>
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="6dp"
+            android:elevation="8dp"
+            android:stateListAnimator="@null"/>
 
         <Button
             android:id="@+id/btn_withdraw"
             android:layout_width="140dp"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             android:text="提现"
             android:textColor="#fff"
             android:textSize="15sp"
-            android:backgroundTint="@color/blue"/>
+            android:backgroundTint="@color/blue"
+            android:layout_marginBottom="6dp"
+            android:elevation="8dp"
+            android:stateListAnimator="@null" />
 
     </LinearLayout>
-    <!-- ================================================================= -->
 
     <!-- 动态Tab容器 -->
     <HorizontalScrollView

@@ -3,8 +3,9 @@
     <color name="tab_unselected">#707070</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-<!--    <color name="red">#dd524d</color>-->
-    <color name="red">#0E4492</color>
+    <color name="category">#dd524d</color>
+    <color name="red">#dd524d</color>
+<!--    <color name="red">#0E4492</color>-->
     <color name="gray">#666666</color>
     <color name="blue">#0E4492</color>
 </resources>

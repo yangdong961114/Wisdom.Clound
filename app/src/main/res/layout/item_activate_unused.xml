@@ -49,10 +49,12 @@
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:text="立即激活"
-            android:background="@drawable/shape_default_bg"
+            android:background="@drawable/shape_main_bg"
             android:textColor="#fff"
             android:layout_marginLeft="10dp"
-            android:paddingHorizontal="15dp"/>
+            android:paddingHorizontal="15dp"
+            app:backgroundTint="@color/blue"
+            xmlns:app="http://schemas.android.com/apk/res-auto"/>
 
     </LinearLayout>
 

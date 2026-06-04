@@ -25,7 +25,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/red"
+                android:background="@drawable/shape_background"
                 android:orientation="vertical">
 
                 <!-- Logo + 文字 -->
@@ -82,13 +82,13 @@
                 </LinearLayout>
 
                 <!-- Banner -->
-                <ImageView
-                    android:id="@+id/iv_banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:src="@drawable/ic_index_banner"
-                    android:scaleType="centerCrop"
-                    android:layout_marginBottom="10dp"/>
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_banner"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="200dp"-->
+<!--                    android:src="@drawable/ic_index_banner"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:layout_marginBottom="10dp"/>-->
 
                 <!-- Tab容器 -->
                 <LinearLayout

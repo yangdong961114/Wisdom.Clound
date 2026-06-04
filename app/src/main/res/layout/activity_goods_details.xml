@@ -6,31 +6,31 @@
     android:background="#F5F5F5"
     android:fitsSystemWindows="true">
 
-    <!-- 顶部标题栏 + 返回按钮 -->
-    <LinearLayout
+    <!-- 顶部标题栏：返回居左，标题居中 -->
+    <RelativeLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/red"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp">
+        android:background="@drawable/shape_background">
 
         <ImageView
             android:id="@+id/btn_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
             android:src="@drawable/ic_arrow_left"
             app:tint="#FFFFFF" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="商品详情"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="15dp"/>
-    </LinearLayout>
+            android:textStyle="bold"/>
+    </RelativeLayout>
 
     <!-- 滚动内容区 -->
     <ScrollView
@@ -209,7 +209,9 @@
                 android:text="0"
                 android:textColor="#FFF"
                 android:textSize="10sp"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                android:elevation="8dp"
+                android:stateListAnimator="@null"/>
         </RelativeLayout>
 
         <!-- 加入购物车按钮（占1份） -->
@@ -222,7 +224,9 @@
             android:backgroundTint="@color/blue"
             android:text="加入购物车"
             android:textColor="#FFF"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:elevation="8dp"
+            android:stateListAnimator="@null"/>
 
         <View
             android:layout_width="10dp"
@@ -234,10 +238,12 @@
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:layout_weight="1"
-            android:backgroundTint="#e94d44"
+            android:backgroundTint="@color/red"
             android:text="立即购买"
             android:textColor="#FFF"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:elevation="8dp"
+            android:stateListAnimator="@null"/>
 
     </LinearLayout>
 

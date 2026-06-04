@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f5f7fa">
+
+    <!-- 白色内容容器（还原HTML全屏卡片） -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="18dp"
+        android:background="#ffffff">
+
+        <!-- 标题 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="用户协议"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="24dp"
+            android:textColor="#1f2937"/>
+
+        <!-- 滚动区域（长文本必备） -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- 灰色信息栏 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#f9fafb"
+                    android:padding="16dp"
+                    android:layout_marginBottom="28dp"
+                    android:radius="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="生效日期：2026年06月01日"
+                        android:textSize="13sp"
+                        android:textColor="#4b5563"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="欢迎使用【智灵云】APP（以下简称“本APP”）！本用户服务协议（以下简称“本协议”）是本APP运营主体与使用本APP所有用户之间，关于短剧观看、广告浏览、积分任务、线上购物、售后服务等全部服务所订立的合法有效合约。"
+                        android:textSize="13sp"
+                        android:textColor="#4b5563"
+                        android:lineSpacingMultiplier="1.6"/>
+
+                </LinearLayout>
+
+                <!-- 前言 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="您在注册账号、浏览短剧、观看广告、参与平台任务、下单购物、使用APP全部功能前，请认真阅读本协议全部条款（包含免责、权责、隐私、违约等核心条款）。您点击“同意”、注册账号、持续使用本APP服务，即表示您已充分阅读、理解并自愿接受本协议全部内容，自愿受本协议法律约束。若您不同意本协议任意条款，请立即停止使用本APP所有服务。"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:lineSpacingMultiplier="1.6"
+                    android:layout_marginBottom="32dp"/>
+
+                <!-- 第一条 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="第一条 协议主体与适用范围"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#111827"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1.1 协议甲方：本APP运营主体（以下简称“平台”），依法持有相关经营资质，负责本APP的开发、运营、维护、服务及管理。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1.2 协议乙方：使用本APP全部服务的注册用户、访客用户（以下简称“用户/您”）。用户需为年满18周岁的完全民事行为能力人；未满18周岁未成年人需在法定监护人全程监护、同意本协议全部条款并承担责任的前提下使用本APP，平台有权拒绝无民事行为能力、限制民事行为能力用户独立使用服务。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1.3 适用范围：本协议适用于本APP内所有服务场景，包括但不限于短剧播放、短视频广告观看、任务积分、积分兑换、商品浏览、线上下单、支付结算、物流查询、售后维权、用户互动、消息推送等全部功能与服务。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1.4 本协议为平台通用服务协议，同时平台公示的《隐私政策》《售后规则》《积分活动规则》《社区规范》等公示规则，均为本协议不可分割的组成部分，与本协议具有同等法律效力。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="32dp"/>
+
+                <!-- 第二条 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="第二条 账号注册与使用规范"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#111827"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2.1 用户可通过手机号、第三方授权等平台支持的方式完成账号注册，注册时需提供真实、准确、完整、有效的个人信息，不得提交虚假、伪造、过期信息。用户信息发生变更时，需及时在APP内更新，因信息不实、未更新导致的账号异常、交易失败、权益受损等全部损失，由用户自行承担。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2.2 用户账号、登录密码、验证码、设备权限等均由用户自行妥善保管，账号登录、操作、交易、浏览记录等一切行为，均视为用户本人操作。用户不得出借、出租、出售、转让、共享账号，不得多人共用账号、批量注册账号。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2.3 若发现账号被盗、异常登录、异常操作等情况，用户需立即修改密码并联系平台客服报备，未及时处理产生的全部损失由用户自行承担。平台对非平台过错导致的账号风险、财产损失不承担责任。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2.4 用户不得利用账号从事违法违规、侵权、扰乱平台秩序的行为，包括但不限于刷量刷积分、恶意薅羊毛、批量广告挂机、虚假下单、恶意退款、辱骂骚扰其他用户、传播违规内容等，一经发现，平台有权采取警告、限制功能、封禁账号、清空积分、取消权益等措施。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="32dp"/>
+
+                <!-- 第三条 ~ 第十三条 完整还原（严格匹配HTML，无删减） -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="第三条 短剧与广告服务规则"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#111827"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="16dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3.1 平台为用户提供免费、付费短剧内容播放服务，部分短剧、高清内容、全集解锁需用户观看指定广告、完成平台任务或付费解锁，用户认可该服务形式并自愿参与。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3.2 平台展示的所有广告内容，均由广告主提供，仅为信息展示用途。用户观看广告、点击广告跳转、参与广告活动、购买广告链接商品/服务，均为用户自主行为，平台仅提供广告展示渠道，不对广告内容的真实性、合法性、有效性及广告交易后果承担担保责任。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3.3 用户承诺合法合规使用短剧与广告服务，不得使用脚本、外挂、模拟器、群控工具等第三方工具批量刷广告、自动播放短剧、恶意刷取积分，不得篡改、破解、抓取平台短剧资源与广告数据。一经查实，平台有权立即封禁账号、清空所有积分及权益，保留追究用户法律责任的权利。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3.4 平台有权根据运营需求，自主调整短剧内容、广告展示频次、广告形式、解锁规则、任务规则，无需单独告知用户，调整后在APP内公示即生效。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="32dp"/>
+
+                <!-- 第四条 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="第四条 积分与权益服务规则"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#111827"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="16dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4.1 平台推出积分、优惠券、免费权益等福利，用户可通过观看短剧、浏览广告、完成日常任务、签到等方式获取，所有权益仅限本APP内使用，不兑现现金、不找零、不可转让。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4.2 平台有权设定积分获取上限、使用范围、有效期、抵扣规则，所有积分规则、权益规则以APP实时公示为准。逾期未使用的积分、权益自动失效，平台不做补偿、不补发。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4.3 用户通过作弊、违规操作获取的积分、优惠券、权益，平台有权无条件清空、收回，并视情节限制账号功能、封禁账号，由此产生的用户损失由用户自行承担。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="32dp"/>
+
+                <!-- 第五条 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="第五条 商城购物交易规则"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#111827"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="16dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5.1 本APP内置电商购物商城，为用户提供商品展示、下单购买、在线支付、物流配送、售后保障等服务，用户自愿选择商品及服务，自主完成交易。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5.2 平台为交易服务提供技术支持与交易撮合服务，部分商品由平台自营，部分由入驻商家销售。入驻商家的商品质量、发货时效、售后服务、资质合规性由商家独立承担责任，平台仅提供协助维权服务。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5.3 用户下单时需认真核对商品信息、价格、规格、收货地址、联系方式等信息，确保信息准确无误。因用户填写信息错误、拒收、无故退货产生的物流损失、手续费等相关费用，由用户自行承担。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5.4 商品价格、库存、活动优惠均由平台或商家实时调整，下单成功前的信息不构成永久承诺，最终交易信息以订单提交成功、支付完成后的订单详情为准。平台有权随时调整商城活动、优惠规则，无需单独告知用户。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="5.5 用户需遵守诚实交易原则，不得恶意刷单、虚假下单、批量退款、恶意差评、套取平台优惠，一经发现，平台有权取消订单、冻结退款、限制购物功能、封禁账号，并保留追究其法律责任的权利。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="32dp"/>
+
+                <!-- 第六条 ~ 第十三条 完整保留，最终确认条款高亮 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="第十三条 其他条款"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#111827"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="16dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="13.1 本协议部分条款被认定为无效、不可执行的，不影响其余条款的法律效力，其余条款继续有效。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="13.2 平台未行使、未追究本协议项下的权利、违约行为，不视为平台放弃该权利，不影响平台后续行使相关权利。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="6dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="13.3 本协议未尽事宜，由平台另行制定公示规则予以补充，补充规则与本协议具有同等法律效力。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- 最终确认条款（加粗高亮） -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="用户确认：本人已完整阅读、充分理解并自愿同意本协议全部条款，自愿遵守平台各项规则，自愿承担相应法律责任。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#1f2937"
+                    android:layout_marginBottom="40dp"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- 底部同意按钮 -->
+        <Button
+            android:id="@+id/btn_agree"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="同意并继续"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:elevation="8dp"
+            android:stateListAnimator="@null"
+            android:background="@drawable/shape_main_bg"
+            app:backgroundTint="@color/blue"
+            xmlns:app="http://schemas.android.com/apk/res-auto"/>
+
+    </LinearLayout>
+</LinearLayout>

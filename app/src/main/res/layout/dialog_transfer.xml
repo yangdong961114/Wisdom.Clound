@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textSize="14sp"
-        android:textColor="#e94d44"/>
+        android:textColor="@color/red"/>
 
     <!-- 转账金额输入框 -->
     <EditText
@@ -75,7 +75,11 @@
         android:layout_height="55dp"
         android:layout_marginTop="8dp"
         android:text="确认转账"
-        android:backgroundTint="@color/blue"
-        android:textColor="#fff"/>
+        android:textColor="#fff"
+        android:elevation="8dp"
+        android:stateListAnimator="@null"
+        android:background="@drawable/shape_main_bg"
+        app:backgroundTint="@color/blue"
+        xmlns:app="http://schemas.android.com/apk/res-auto"/>
 
 </LinearLayout>

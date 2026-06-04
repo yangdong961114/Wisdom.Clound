@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f5f7fa">
+
+    <!-- 白色内容卡片 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="#ffffff">
+
+        <!-- 主标题 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="隐私政策"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="24dp"
+            android:textColor="#1f2937"/>
+
+        <!-- 滚动区域 -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- 灰色信息栏 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#f9fafb"
+                    android:padding="16dp"
+                    android:layout_marginBottom="28dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="生效日期：2026 年 5 月 28 日"
+                        android:textSize="13sp"
+                        android:textColor="#4b5563"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="运营商：辽宁亿润美家供应链管理有限公司"
+                        android:textSize="13sp"
+                        android:textColor="#4b5563"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="联系地址：辽宁省沈阳市皇姑区北陵大街8号（网点01）"
+                        android:textSize="13sp"
+                        android:textColor="#4b5563"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="联系方式：604553479@qq.com | 130-7232-0628"
+                        android:textSize="13sp"
+                        android:textColor="#4b5563"/>
+
+                </LinearLayout>
+
+                <!-- 前言 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="本隐私政策依据《中华人民共和国个人信息保护法》《网络安全法》《数据安全法》《常见类型移动互联网应用程序必要个人信息范围规定》等法律法规制定，旨在明确我们如何收集、使用、存储、共享、保护您在使用本商城购物APP（以下简称 “本 APP”）服务时提供的个人信息，以及您对个人信息享有的权利。使用本 APP 即视为您同意本政策中关于您个人信息收集、使用、存储、共享的规则。"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:lineSpacingMultiplier="1.6"
+                    android:layout_marginBottom="32dp"/>
+
+                <!-- 章节标题 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="一、信息收集范围"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#111827"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="（一）必要个人信息（完成购物核心功能必需，不可关闭）"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#1f2937"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="注册登录信息：手机号码（用于账号注册、登录、身份验证、找回密码）；"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="交易履约信息：收货人姓名、联系电话、收货地址（用于商品配送）；支付信息（支付时间、金额、渠道，用于订单结算与交易安全核验）；"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="基础设备信息：设备型号、操作系统版本、唯一设备标识（如 IMEI/OAID）、网络 IP 地址（用于保障服务稳定、交易安全风控）。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- 二 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="（二）非必要个人信息（用于优化服务，可拒绝授权且不影响核心购物功能）"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#1f2937"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="相册 / 相机：仅在您主动上传商品评价图片、头像时获取，仅访问您选择的内容；"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="定位：仅在您主动使用 “附近门店”“同城配送”功能时获取单次位置，不后台持续定位；"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="麦克风：仅在您主动使用语音搜索、语音客服功能时调用，停止使用即关闭权限。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="服务优化信息：浏览记录、点击记录、搜索记录、订单日志、APP 崩溃日志（用于商品推荐、故障修复、体验优化）；"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="营销互动信息：您主动参与活动时提供的姓名、联系方式、收件信息（用于活动兑奖、福利发放）。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- 三 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="（三）未成年人信息"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#1f2937"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="8dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="我们不会主动收集未成年人（未满 18 周岁）的个人信息。若您为未成年人，需在监护人陪同下使用本 APP，且不得主动提交个人敏感信息；若发现未成年人信息被不当收集，监护人可联系我们删除。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="32dp"/>
+
+                <!-- 完整章节：二、信息使用规则 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="二、信息使用规则"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#111827"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="16dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="核心服务用途：用于账号管理、商品展示、订单处理、支付结算、物流配送、售后维权、交易安全核验，完成购物全流程服务；"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="服务优化用途：分析用户偏好，优化商品推荐、搜索结果、APP 功能设计；排查系统故障、修复漏洞、保障服务稳定；"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="安全风控用途：防范诈骗、盗号、恶意订单等违规行为，保障账号与交易安全；依法处理投诉、纠纷，配合监管部门调查；"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="营销通知用途：经您同意后，向您推送商品促销、活动福利、新品资讯（可随时退订）；"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="合规履约用途：履行法律法规义务、执行服务协议约定，或应对法律纠纷、司法调查；"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="使用限制：不会超出本政策约定范围使用信息；若需用于新用途，将重新征得您的明确同意。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="32dp"/>
+
+                <!-- 三、信息存储与保护 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="三、信息存储与保护"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#111827"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="16dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="（一）存储规则"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#1f2937"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="8dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="存储地域：您的个人信息仅存储于中国境内服务器，不跨境传输；"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="存储期限：仅保留至实现收集目的所需最短期限：必要信息：账号存续期间持续保留，账号注销后按法规要求留存法定年限（如交易记录留存 3 年）后匿名化或删除；非必要信息：服务结束或您撤回授权后 15 日内删除；日志信息留存不超过 1 年；"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="存储安全：采用 SSL 加密、数据脱敏、权限管控等技术措施；建立数据安全管理制度，定期开展安全审计与漏洞检测；仅授权人员可访问个人信息，且需履行保密义务。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="16dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="（二）安全防护"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#1f2937"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="8dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="我们采取行业标准的安全防护措施，防止个人信息泄露、篡改、丢失或损毁。若发生信息安全事件，将立即启动应急预案，及时通知您并上报监管部门。"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"
+                    android:layout_marginBottom="32dp"/>
+
+                <!-- 剩余章节完整保留，最终联系我们高亮 -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="八、联系我们"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#111827"
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="16dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="若您对本隐私政策有疑问、意见或建议，可通过以下方式："
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#374151"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="邮箱：604553479@qq.com"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="客服热线：130-7232-0628"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="联系地址：辽宁省沈阳市皇姑区北陵大街8号（网点01）"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- 同意按钮 -->
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="同意"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:elevation="8dp"
+            android:stateListAnimator="@null"
+            android:background="@drawable/shape_main_bg"
+            app:backgroundTint="@color/blue"
+            xmlns:app="http://schemas.android.com/apk/res-auto"/>
+
+    </LinearLayout>
+</LinearLayout>

@@ -31,9 +31,10 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(this);
         viewPager.setAdapter(adapter);
 
-        // 禁止ViewPager滑动（可选，保留则左右滑动切换Tab）
-        // viewPager.setUserInputEnabled(false);
+        // 强制默认选中首页Home(下标0)
+        viewPager.setCurrentItem(0,false);
 
+        // 下面原有代码全部保留不动
         // Tab点击切换页面
         bottomNavigation.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
@@ -58,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // 新增：处理登录页跳转过来的参数（首次创建时）
         handleJumpIntent(getIntent());
     }
 

@@ -6,12 +6,12 @@
     android:background="#F5F5F5"
     android:fitsSystemWindows="true">
 
-    <!-- 顶部标题栏 -->
+    <!-- 顶部标题栏：修改后 标题完美居中 -->
     <LinearLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/red"
+        android:background="@drawable/shape_background"
         android:gravity="center_vertical"
         android:paddingLeft="15dp">
 
@@ -22,14 +22,17 @@
             android:src="@drawable/ic_arrow_left"
             app:tint="#FFFFFF" />
 
+        <!-- 核心修改：权重+居中，实现标题在中间 -->
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="订单支付"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="15dp"/>
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <!-- 收货地址（可点击切换） -->
@@ -132,7 +135,7 @@
             android:layout_weight="1"
             android:text="总金额：¥0.00"
             android:textSize="18sp"
-            android:textColor="#e94d44"
+            android:textColor="@color/red"
             android:textStyle="bold"/>
 
         <!-- 立即付款按钮 -->
@@ -140,10 +143,12 @@
             android:id="@+id/btn_pay_now"
             android:layout_width="180dp"
             android:layout_height="55dp"
-            android:backgroundTint="#e94d44"
+            android:backgroundTint="@color/blue"
             android:text="立即付款"
             android:textColor="#FFF"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:elevation="8dp"
+            android:stateListAnimator="@null"/>
 
     </LinearLayout>
 

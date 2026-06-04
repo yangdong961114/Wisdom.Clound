@@ -34,6 +34,7 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.wisdom.clound.Bean.UserResponse;
 import com.wisdom.clound.R;
 import com.wisdom.clound.ui.LoginActivity;
@@ -420,7 +421,7 @@ public class MainFragment extends Fragment {
         tvUserWallet.setText(TextUtils.isEmpty(userWallet) ? "￥0.00元" : userWallet);
         tvUserPoints.setText(TextUtils.isEmpty(userPoints) ? "0" : userPoints);
         tvAmount.setText(TextUtils.isEmpty(userFee) ? "0" : userAmount);
-        Glide.with(this).load(userAvatar).placeholder(R.drawable.ic_avatar).error(R.drawable.ic_avatar).into(ivAvatar);
+        Glide.with(this).load(userAvatar).transform(new CircleCrop()).placeholder(R.drawable.ic_avatar).error(R.drawable.ic_avatar).into(ivAvatar);
         stopRefreshAnimation();
     }
 

@@ -12,7 +12,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@drawable/ic_index_logo" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -34,6 +34,15 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="4dp" />
+
+        <!-- 新增：推荐人/接点人 字段 -->
+        <TextView
+            android:id="@+id/tv_share_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/blue"
             android:layout_marginTop="4dp" />
 
         <TextView
@@ -58,9 +67,11 @@
         android:id="@+id/btn_transfer"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:backgroundTint="@color/blue"
         android:text="转账"
         android:textColor="#fff"
-        android:paddingHorizontal="12dp"/>
+        android:paddingHorizontal="12dp"
+        android:background="@drawable/shape_main_bg"
+        app:backgroundTint="@color/blue"
+        xmlns:app="http://schemas.android.com/apk/res-auto"/>
 
 </LinearLayout>

@@ -22,7 +22,6 @@ import java.util.List;
 public class ShareListAdapter extends RecyclerView.Adapter<ShareListAdapter.ViewHolder> {
     private Context mContext;
     private List<ShareListBean.DataBean> mDataList;
-    // 转账点击回调
     private OnTransferClickListener listener;
 
     public ShareListAdapter(Context context, List<ShareListBean.DataBean> dataList) {
@@ -30,7 +29,6 @@ public class ShareListAdapter extends RecyclerView.Adapter<ShareListAdapter.View
         this.mDataList = dataList;
     }
 
-    // 设置点击监听
     public void setOnTransferClickListener(OnTransferClickListener listener) {
         this.listener = listener;
     }
@@ -50,6 +48,8 @@ public class ShareListAdapter extends RecyclerView.Adapter<ShareListAdapter.View
                 ? "未知用户" : bean.getUserName();
         holder.tvUserName.setText(userName);
         holder.tvLoginName.setText("登录名：" + (bean.getUserLoginName() == null ? "无" : bean.getUserLoginName()));
+        // 核心修改：绑定推荐人信息
+        holder.tvShareUserName.setText(bean.getShareUserName());
         holder.tvRegisterDate.setText("注册时间：" + bean.getStrRegisterDate());
         holder.tvPlatform.setText("状态：" + bean.getStrStatus());
 
@@ -60,7 +60,6 @@ public class ShareListAdapter extends RecyclerView.Adapter<ShareListAdapter.View
                 .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                 .into(holder.ivAvatar);
 
-        // 转账按钮点击
         holder.btnTransfer.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onTransferClick(bean);
@@ -85,7 +84,7 @@ public class ShareListAdapter extends RecyclerView.Adapter<ShareListAdapter.View
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivAvatar;
-        TextView tvUserName,tvLoginName,tvRegisterDate,tvPlatform;
+        TextView tvUserName,tvLoginName,tvShareUserName,tvRegisterDate,tvPlatform;
         Button btnTransfer;
 
         public ViewHolder(@NonNull View itemView) {
@@ -93,13 +92,13 @@ public class ShareListAdapter extends RecyclerView.Adapter<ShareListAdapter.View
             ivAvatar = itemView.findViewById(R.id.iv_avatar);
             tvUserName = itemView.findViewById(R.id.tv_user_name);
             tvLoginName = itemView.findViewById(R.id.tv_login_name);
+            tvShareUserName = itemView.findViewById(R.id.tv_share_user_name); // 新增控件绑定
             tvRegisterDate = itemView.findViewById(R.id.tv_register_date);
             tvPlatform = itemView.findViewById(R.id.tv_platform);
             btnTransfer = itemView.findViewById(R.id.btn_transfer);
         }
     }
 
-    // 回调接口
     public interface OnTransferClickListener {
         void onTransferClick(ShareListBean.DataBean bean);
     }

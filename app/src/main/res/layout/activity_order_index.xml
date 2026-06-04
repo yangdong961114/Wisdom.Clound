@@ -6,51 +6,54 @@
     android:background="#F5F5F5"
     android:fitsSystemWindows="true">
 
-    <!-- 顶部标题栏 + 返回按钮（统一你的项目风格） -->
-    <LinearLayout
+    <!-- 顶部标题栏：返回按钮左对齐，标题水平居中 -->
+    <RelativeLayout
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/red"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp">
+        android:background="@drawable/shape_background">
 
+        <!-- 返回按钮 左侧 -->
         <ImageView
             android:id="@+id/btn_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
             android:src="@drawable/ic_arrow_left"
             app:tint="#FFFFFF" />
 
+        <!-- 标题 水平居中 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="我的订单"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="15dp"/>
-    </LinearLayout>
+            android:textStyle="bold" />
 
-    <!-- 滑动选项卡 TabLayout（已删除错误属性，纯原生可编译） -->
+    </RelativeLayout>
+
+    <!-- 滑动选项卡 TabLayout（无错误属性，可正常编译） -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@id/top_bar"
         android:background="#FFFFFF"
+        app:tabGravity="fill"
         app:tabIndicatorColor="@color/red"
         app:tabIndicatorHeight="2dp"
         app:tabMode="fixed"
-        app:tabGravity="fill"
         app:tabSelectedTextColor="@color/red"
-        app:tabTextColor="#666666"/>
+        app:tabTextColor="#666666" />
 
     <!-- 订单列表 ViewPager2 -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tab_layout"/>
+        android:layout_below="@id/tab_layout" />
 
 </RelativeLayout>

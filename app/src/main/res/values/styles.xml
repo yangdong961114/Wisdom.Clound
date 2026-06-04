@@ -10,4 +10,17 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+    <style name="MyRadioButtonTheme">
+        <item name="colorControlNormal">@color/blue</item>
+        <item name="colorControlActivated">@color/blue</item>
+    </style>
+    <style name="SplashFullScreenTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- 核心1：启动预览背景 = 你的渐变图，替换系统默认安卓图标 -->
+        <item name="android:windowBackground">@drawable/shape_background</item>
+        <!-- 核心2：禁用系统原生默认预览画面（删掉绿色安卓图标必加） -->
+        <item name="android:windowDisablePreview">true</item>
+    </style>
 </resources>

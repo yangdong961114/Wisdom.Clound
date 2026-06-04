@@ -3,7 +3,6 @@ package com.wisdom.clound.ui.share;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +17,11 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.wisdom.clound.Bean.ConfigBean;
 import com.wisdom.clound.Bean.ShareListBean;
-import com.wisdom.clound.Bean.ShareStatisticBean;
 import com.wisdom.clound.Bean.UserWalletBean;
 import com.wisdom.clound.R;
 import com.wisdom.clound.adapter.ShareListAdapter;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -45,7 +44,8 @@ public class ShareIndexActivity extends AppCompatActivity {
     // 控件
     private ImageButton btnBack;
     private TabLayout tabLayout;
-    private TextView tvRecommendNum, tvGroupNum;
+    // 宫格统计控件
+    private TextView tv_shareContext,tv_shareDetailsContext, tv_shareUserName, tv_shareUserCounts, tv_teamUserCounts, tv_teamTotal;
     private EditText etSearch;
     private RecyclerView rvShareList;
     private TextView tvLoadMore;
@@ -98,16 +98,14 @@ public class ShareIndexActivity extends AppCompatActivity {
     // ==================== 统一封装：黑色透明Toast + 居中 + 无图标 ====================
     private void showToast(String msg) {
         if (TextUtils.isEmpty(msg)) return;
-        // 纯文字TextView，无任何默认图标
         TextView textView = new TextView(this);
         textView.setText(msg);
         textView.setTextSize(14);
-        textView.setTextColor(0xFFFFFFFF); // 白色文字
-        textView.setBackgroundColor(0xCC000000); // 黑色半透明背景
+        textView.setTextColor(0xFFFFFFFF);
+        textView.setBackgroundColor(0xCC000000);
         textView.setPadding(50, 25, 50, 25);
         textView.setGravity(Gravity.CENTER);
 
-        // 居中显示
         Toast toast = new Toast(this);
         toast.setView(textView);
         toast.setDuration(Toast.LENGTH_SHORT);
@@ -118,8 +116,14 @@ public class ShareIndexActivity extends AppCompatActivity {
     private void initView() {
         btnBack = findViewById(R.id.btn_back);
         tabLayout = findViewById(R.id.tab_layout);
-        tvRecommendNum = findViewById(R.id.tv_recommend_num);
-        tvGroupNum = findViewById(R.id.tv_group_num);
+        // 绑定宫格统计控件
+        tv_shareContext = findViewById(R.id.tv_shareContext);
+        tv_shareDetailsContext = findViewById(R.id.tv_shareDetailsContext);
+        tv_shareUserName = findViewById(R.id.tv_shareUserName);
+        tv_shareUserCounts = findViewById(R.id.tv_shareUserCounts);
+        tv_teamUserCounts = findViewById(R.id.tv_teamUserCounts);
+        tv_teamTotal = findViewById(R.id.tv_teamTotal);
+
         etSearch = findViewById(R.id.et_search);
         rvShareList = findViewById(R.id.rv_share_list);
         tvLoadMore = findViewById(R.id.tv_load_more);
@@ -150,11 +154,20 @@ public class ShareIndexActivity extends AppCompatActivity {
     private void setListener() {
         btnBack.setOnClickListener(v -> finish());
 
+        // Tab切换监听：推荐=0，接点=1
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 currentTabIndex = tab.getPosition();
                 currentPage = 1;
+                // 切换标题：推荐→推荐人，接点→接点人
+                if (currentTabIndex == 0) {
+                    tv_shareContext.setText("推荐人");
+                    tv_shareDetailsContext.setText("直推人数");
+                } else {
+                    tv_shareContext.setText("接点人");
+                    tv_shareDetailsContext.setText("接点人数");
+                }
                 loadShareStatistic(currentTabIndex);
                 loadShareList(false);
             }
@@ -203,7 +216,7 @@ public class ShareIndexActivity extends AppCompatActivity {
 
     // 转账弹窗
     private void showTransferDialog() {
-        transferDialog = new Dialog(this); // 绑定转账弹窗
+        transferDialog = new Dialog(this);
         View view = getLayoutInflater().inflate(R.layout.dialog_transfer, null);
         transferDialog.setContentView(view);
         transferDialog.setCancelable(true);
@@ -241,13 +254,13 @@ public class ShareIndexActivity extends AppCompatActivity {
                 return;
             }
             currentTransferAmount = Double.parseDouble(amount);
-            showSixPasswordDialog(); // 不关闭转账弹窗
+            showSixPasswordDialog();
         });
 
         transferDialog.show();
     }
 
-    // 6位非全屏密码弹窗 + 自定义键盘 + 删除（修复点击无效）
+    // 6位非全屏密码弹窗
     private void showSixPasswordDialog() {
         currentPosition = 0;
         pwdDialog = new Dialog(this, R.style.Theme_Translucent_NoTitleBar);
@@ -255,7 +268,6 @@ public class ShareIndexActivity extends AppCompatActivity {
         pwdDialog.setContentView(view);
         pwdDialog.setCancelable(true);
 
-        // 弹窗居中、非全屏
         if (pwdDialog.getWindow() != null) {
             WindowManager.LayoutParams params = pwdDialog.getWindow().getAttributes();
             params.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.85);
@@ -263,7 +275,6 @@ public class ShareIndexActivity extends AppCompatActivity {
             pwdDialog.getWindow().setAttributes(params);
         }
 
-        // 初始化密码框
         passwordEditTexts[0] = view.findViewById(R.id.et_pwd_1);
         passwordEditTexts[1] = view.findViewById(R.id.et_pwd_2);
         passwordEditTexts[2] = view.findViewById(R.id.et_pwd_3);
@@ -272,7 +283,6 @@ public class ShareIndexActivity extends AppCompatActivity {
         passwordEditTexts[5] = view.findViewById(R.id.et_pwd_6);
         TextView tvCancel = view.findViewById(R.id.tv_cancel);
 
-        // 绑定数字按钮
         Button btn0 = view.findViewById(R.id.btn_0);
         Button btn1 = view.findViewById(R.id.btn_1);
         Button btn2 = view.findViewById(R.id.btn_2);
@@ -285,10 +295,8 @@ public class ShareIndexActivity extends AppCompatActivity {
         Button btn9 = view.findViewById(R.id.btn_9);
         Button btnDel = view.findViewById(R.id.btn_del);
 
-        // 清空密码框
         for (EditText et : passwordEditTexts) et.setText("");
 
-        // 点击数字
         btn0.setOnClickListener(v -> inputPassword("0"));
         btn1.setOnClickListener(v -> inputPassword("1"));
         btn2.setOnClickListener(v -> inputPassword("2"));
@@ -300,9 +308,7 @@ public class ShareIndexActivity extends AppCompatActivity {
         btn8.setOnClickListener(v -> inputPassword("8"));
         btn9.setOnClickListener(v -> inputPassword("9"));
 
-        // 删除
         btnDel.setOnClickListener(v -> deletePassword());
-        // 取消
         tvCancel.setOnClickListener(v -> pwdDialog.dismiss());
 
         pwdDialog.show();
@@ -313,7 +319,6 @@ public class ShareIndexActivity extends AppCompatActivity {
         if (currentPosition < 6) {
             passwordEditTexts[currentPosition].setText(num);
             currentPosition++;
-            // 输满6位自动提交
             if (currentPosition == 6) {
                 String pwd = getPassword();
                 submitTransfer(currentTransferAmount, pwd);
@@ -321,7 +326,7 @@ public class ShareIndexActivity extends AppCompatActivity {
         }
     }
 
-    // 删除密码（回退上一位）
+    // 删除密码
     private void deletePassword() {
         if (currentPosition > 0) {
             currentPosition--;
@@ -386,14 +391,13 @@ public class ShareIndexActivity extends AppCompatActivity {
         });
     }
 
-    // 提交转账（严格按照API接口处理）
+    // 提交转账
     private void submitTransfer(double amount, String payPwd) {
         if (TextUtils.isEmpty(payPwd) || payPwd.length() != 6) {
             showToast("请输入6位支付密码");
             return;
         }
 
-        // 构建请求参数
         JSONObject params = new JSONObject();
         try {
             params.put("userId", userId);
@@ -449,12 +453,12 @@ public class ShareIndexActivity extends AppCompatActivity {
         });
     }
 
-    // 新增：获取当前密码弹窗对象
+    // 获取当前密码弹窗对象
     private Dialog getDialog(){
         return pwdDialog;
     }
 
-    // 统计接口
+    // ==================== 【核心改造】新统计接口适配 ====================
     private void loadShareStatistic(int typesId) {
         String url = "https://api.rzkj.qyqd123.cn/Android/ShareActivity/GetUserShare?userId=" + userId + "&typesId=" + typesId;
         Request request = new Request.Builder().url(url).get().build();
@@ -467,25 +471,35 @@ public class ShareIndexActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    ShareStatisticBean statisticBean = gson.fromJson(response.body().string(), ShareStatisticBean.class);
-                    runOnUiThread(() -> {
-                        if (statisticBean.getCode() == 200 && statisticBean.getData() != null) {
-                            for (ShareStatisticBean.DataBean dataBean : statisticBean.getData()) {
-                                if ("推荐".equals(dataBean.getName())) tvRecommendNum.setText(dataBean.getContent());
-                                else if ("小组".equals(dataBean.getName())) tvGroupNum.setText(dataBean.getContent());
-                            }
+                    String json = response.body().string();
+                    try {
+                        JSONObject jsonObject = new JSONObject(json);
+                        if (jsonObject.getInt("code") == 200) {
+                            JSONObject data = jsonObject.getJSONObject("data");
+                            runOnUiThread(() -> {
+                                // 赋值数据
+                                tv_shareUserName.setText(data.optString("ShareUserName"));
+                                tv_shareUserCounts.setText(data.optString("UserShareCounts"));
+                                tv_teamUserCounts.setText(data.optString("TeamShareCounts"));
+                                tv_teamTotal.setText(data.optString("TeamTotal"));
+                            });
                         }
-                    });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        runOnUiThread(()-> showToast("数据解析失败"));
+                    }
                 }
             }
         });
     }
 
     // 列表接口
+    // 列表接口
     private void loadShareList(boolean isLoadMore) {
         if (isLoading) return;
         isLoading = true;
-        String url = "https://api.rzkj.qyqd123.cn/Android/ShareActivity/GetUserShareList?userId=" + userId + "&userName=" + currentUserName + "&page=" + currentPage;
+        // 核心修改：新增 &typesId=currentTabIndex 参数
+        String url = "https://api.rzkj.qyqd123.cn/Android/ShareActivity/GetUserShareList?userId=" + userId + "&userName=" + currentUserName + "&page=" + currentPage + "&typesId=" + currentTabIndex;
         Request request = new Request.Builder().url(url).get().build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override

@@ -62,6 +62,16 @@ public class ShareListBean {
         private String UserPayPwdDecrypt;
         private String Session;
         public String StrStatus;
+        // 新增接口返回字段
+        private String ShareUserName;
+
+        public String getShareUserName() {
+            return ShareUserName == null ? "" : ShareUserName;
+        }
+
+        public void setShareUserName(String shareUserName) {
+            ShareUserName = shareUserName;
+        }
 
         public int getId() {
             return Id;

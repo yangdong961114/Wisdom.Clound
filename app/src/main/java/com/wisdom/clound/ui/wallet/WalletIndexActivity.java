@@ -132,7 +132,11 @@ public class WalletIndexActivity extends AppCompatActivity {
             weChatRecharge(money);
         });
         builder.setNegativeButton("取消", null);
-        builder.show();
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        // 修改按钮文字颜色
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this,R.color.blue));
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this,R.color.blue));
     }
 
     // 微信充值请求
@@ -219,6 +223,7 @@ public class WalletIndexActivity extends AppCompatActivity {
         EditText etMoney = view.findViewById(R.id.et_money);
         TextView tvTip = view.findViewById(R.id.tv_tip);
         tvTip.setText("温馨提示：提现将扣除 " + cashSale + "% 的手续费");
+        tvTip.setTextColor(ContextCompat.getColor(this,R.color.red));
         tvTip.setVisibility(View.VISIBLE);
         builder.setView(view);
         builder.setPositiveButton("确认提现", (dialog, which) -> {
@@ -231,7 +236,11 @@ public class WalletIndexActivity extends AppCompatActivity {
             showSixPasswordDialog();
         });
         builder.setNegativeButton("取消", null);
-        builder.show();
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        // 修改按钮文字颜色
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this,R.color.blue));
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this,R.color.blue));
     }
 
     // ====================== 修复核心：密码输入完成 → 调用微信提现 ======================
@@ -465,7 +474,7 @@ public class WalletIndexActivity extends AppCompatActivity {
                 tv.setPadding(15, 0, 15, 0);
 
                 if (bean.getKey() == currentTypesId) {
-                    tv.setTextColor(getResources().getColor(R.color.red));
+                    tv.setTextColor(getResources().getColor(R.color.blue));
                     selectedTab = tv;
                 } else {
                     tv.setTextColor(0xFF666666);
@@ -474,7 +483,7 @@ public class WalletIndexActivity extends AppCompatActivity {
                 int finalKey = bean.getKey();
                 tv.setOnClickListener(v -> {
                     if (selectedTab != null) selectedTab.setTextColor(0xFF666666);
-                    tv.setTextColor(getResources().getColor(R.color.red));
+                    tv.setTextColor(getResources().getColor(R.color.blue));
                     selectedTab = tv;
                     currentTypesId = finalKey;
                     getWalletData();

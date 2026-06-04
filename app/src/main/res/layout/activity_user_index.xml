@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/red">
+        android:background="@drawable/shape_background">
 
         <!-- 返回按钮 -->
         <ImageView
@@ -203,6 +203,13 @@
                 android:src="@drawable/ic_arrow_right"
                 android:scaleType="centerInside"/>
         </LinearLayout>
+
+        <!-- 分割线 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eeeeee"
+            android:layout_marginLeft="15dp"/>
 
         <!-- 地址管理条目 -->
         <LinearLayout

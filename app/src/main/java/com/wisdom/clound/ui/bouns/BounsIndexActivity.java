@@ -119,13 +119,13 @@ public class BounsIndexActivity extends AppCompatActivity {
         // 选中状态
         if (type == 0) {
             tvMaxTitle.setText("最大单型");
-            tab0.setTextColor(getResources().getColor(R.color.red));
+            tab0.setTextColor(getResources().getColor(R.color.blue));
         } else if (type == 1) {
             tvMaxTitle.setText("分成比例");
-            tab1.setTextColor(getResources().getColor(R.color.red));
+            tab1.setTextColor(getResources().getColor(R.color.blue));
         } else {
             tvMaxTitle.setText("分成比例");
-            tab2.setTextColor(getResources().getColor(R.color.red));
+            tab2.setTextColor(getResources().getColor(R.color.blue));
         }
         // 重新请求数据
         getBounsData();

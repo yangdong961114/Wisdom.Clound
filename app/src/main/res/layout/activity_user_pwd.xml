@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/red">
+        android:background="@drawable/shape_background">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -154,7 +154,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/shape_start_task_btn"
+                android:background="@drawable/shape_main_bg"
                 android:orientation="vertical"
                 android:gravity="center"
                 android:padding="8dp">

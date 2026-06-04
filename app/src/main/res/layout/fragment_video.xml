@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/red"
+        android:background="@drawable/shape_background"
         android:orientation="vertical">
 
         <!-- 第一行：Logo + 文字（和首页一致） -->
@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="灵智云|精选短剧"
+                android:text="智灵云|精选短剧"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:scrollbars="none"
             android:overScrollMode="never"
-            android:background="@color/red"
+            android:background="@drawable/shape_background"
             android:layout_marginBottom="10dp"
             android:padding="5dp">
 

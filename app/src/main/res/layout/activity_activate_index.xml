@@ -14,7 +14,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/red"
+        android:background="@drawable/shape_background"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
