@@ -1,74 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:background="#F5F5F5">
 
+    <!-- 搜索栏（参考图样式，可根据实际需求调整） -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_background"
-        android:orientation="vertical">
-
-        <!-- 第一行：Logo + 文字（和首页一致） -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_marginTop="30dp"
-            android:padding="10dp">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_index_logo"
-                android:scaleType="fitCenter" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="智灵云|精选短剧"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp" />
-        </LinearLayout>
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/shape_search_bg">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@android:drawable/ic_menu_search"
-                app:tint="#999999" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="搜索视频"
-                android:textColor="#999999"
-                android:textSize="18sp"
-                android:layout_marginLeft="8dp"/>
-        </LinearLayout>
-
-        <!-- 第三行：滑动Tab选项卡 -->
-        <HorizontalScrollView
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:overScrollMode="never"
             android:background="@drawable/shape_background"
-            android:layout_marginBottom="10dp"
-            android:padding="5dp">
+            android:orientation="vertical">
+
+            <!-- Logo + 文字 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="30dp"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:id="@+id/iv_logo"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_index_logo"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="智灵云|优选短剧免费看"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- 搜索框 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/shape_search_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@android:drawable/ic_menu_search"
+                    app:tint="#999999"/> <!-- 修复：app:tint → android:tint -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="搜索商品/分类"
+                    android:textColor="#999999"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="8dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_search_bg"
+            android:hint="请输入名称或类型"
+            android:layout_marginTop="40dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textSize="14sp"
+            android:drawableLeft="@android:drawable/ic_menu_search"
+            android:drawablePadding="8dp"
+            android:radius="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shape_search_bg"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="搜索"
+            android:textSize="14sp"
+            android:drawablePadding="5dp"/>
+    </LinearLayout>
+
+    <!-- Tab栏（横向滚动 + 下拉按钮） -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_background"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="5dp">
+
+        <HorizontalScrollView
+            android:id="@+id/hsv_tab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:id="@+id/ll_tab_container"
@@ -78,18 +126,30 @@
                 android:gravity="center_vertical"/>
         </HorizontalScrollView>
 
-        <!-- 第四行：视频列表（下拉刷新+网格） -->
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/srl_refresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_video_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#F5F5F5"
-                android:padding="5dp"/>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <!-- 下拉按钮（参考图样式） -->
+        <ImageView
+            android:id="@+id/iv_tab_dropdown"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_dropdown"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:background="#FFFFFF"
+            android:padding="5dp"
+            android:radius="15dp"/>
     </LinearLayout>
-</ScrollView>
+
+    <!-- 视频列表 + 下拉刷新 -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_video_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>

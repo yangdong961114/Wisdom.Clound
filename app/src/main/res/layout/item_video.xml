@@ -3,62 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/shape_video_item_bg"
-    android:clipToOutline="true"
-    android:padding="5dp"
-    android:layout_margin="5dp">
+    android:padding="5dp">
 
-    <!-- 视频封面（圆角） -->
-    <RelativeLayout
+    <!-- 视频封面：宽满父，高为宽度1.5倍(2:3)，固定比例防变形 -->
+    <ImageView
+        android:id="@+id/iv_video_cover"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:scaleType="centerCrop"
+        android:background="#F2F2F2"/>
+
+    <!-- 下方文字区域 -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:minHeight="150dp">
+        android:orientation="vertical"
+        android:paddingTop="6dp">
 
-        <ImageView
-            android:id="@+id/iv_video_cover"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_index_logo"
-            android:background="@drawable/shape_video_img_bg"
-            android:clipToOutline="true"/>
-
-        <!-- 视频时长（右下角） -->
+        <!-- 短剧标题 -->
         <TextView
-            android:id="@+id/tv_duration"
+            android:id="@+id/tv_video_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#222222"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+        <!-- 分类标签（SubTitle） -->
+        <TextView
+            android:id="@+id/tv_sub_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#888888"
+            android:layout_marginTop="3dp"/>
+
+        <!-- 总集数，靠右显示 -->
+        <TextView
+            android:id="@+id/tv_total_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:00"
-            android:textColor="#FFFFFF"
             android:textSize="12sp"
-            android:background="#CC000000"
-            android:padding="4dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="4dp"
-            android:radius="2dp"/>
-    </RelativeLayout>
+            android:textColor="#888888"
+            android:layout_gravity="end"
+            android:layout_marginTop="3dp"/>
 
-    <!-- 视频标题 -->
-    <TextView
-        android:id="@+id/tv_video_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="未知视频"
-        android:textColor="#333333"
-        android:textSize="14sp"
-        android:layout_marginTop="4dp"
-        android:maxLines="2"
-        android:ellipsize="end"/>
+    </LinearLayout>
 
-    <!-- 播放量 -->
-    <TextView
-        android:id="@+id/tv_play_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0次播放"
-        android:textColor="#999999"
-        android:textSize="12sp"
-        android:layout_marginTop="2dp"/>
 </LinearLayout>

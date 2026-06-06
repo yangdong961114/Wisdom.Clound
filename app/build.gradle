@@ -49,4 +49,10 @@ dependencies {
     implementation libs.flexbox
     implementation libs.recyclerview
     implementation libs.wechat.sdk.android
+    implementation libs.exoplayer.core
+    implementation libs.exoplayer.hls // 支持M3U8
+    implementation libs.exoplayer.ui
+    implementation libs.retrofit
+    implementation libs.converter.gson
+
 }

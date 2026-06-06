@@ -1,5 +1,7 @@
 [versions]
 agp = "9.1.1"
+exoplayerCore = "2.19.1"
+exoplayerHls = "2.19.1"
 flexbox = "3.0.0"
 glide = "5.0.7"
 compiler = "5.0.7"
@@ -14,11 +16,16 @@ constraintlayout = "2.1.4"
 okhttp = "5.3.2"
 okhttpVersion = "4.12.0"
 recyclerview = "1.3.2"
+retrofit = "3.0.0"
 swiperefreshlayout = "1.1.0"
 wechatSdkAndroid = "6.8.34"
 
 [libraries]
 compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+exoplayer-hls = { module = "com.google.android.exoplayer:exoplayer-hls", version.ref = "exoplayerHls" }
+exoplayer-core = { module = "com.google.android.exoplayer:exoplayer-core", version.ref = "exoplayerCore" }
+exoplayer-ui = { module = "com.google.android.exoplayer:exoplayer-ui", version.ref = "exoplayerCore" }
 flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
@@ -33,6 +40,7 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okhttp-v4120 = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttpVersion" }
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
 wechat-sdk-android = { module = "com.tencent.mm.opensdk:wechat-sdk-android", version.ref = "wechatSdkAndroid" }
 

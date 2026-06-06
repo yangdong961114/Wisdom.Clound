@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -325,6 +326,7 @@ public class HomeFragment extends Fragment {
         builder.setMessage("当前版本过低，建议立即更新APP");
         // 取消按钮
         builder.setNegativeButton("取消", null);
+        Log.d("HomeFragment", "showUpdateDialog: "+ apkUrl);
         // 立即更新按钮
         builder.setPositiveButton("立即更新", (dialog, which) -> {
             if (TextUtils.isEmpty(apkUrl)) {
